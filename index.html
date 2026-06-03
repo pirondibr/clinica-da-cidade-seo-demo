@@ -114,6 +114,12 @@
   .box-title span{display:block;font-size:16px;margin-bottom:18px}
   .box-endereco{display:inline-flex;gap:10px;align-items:center;background:var(--bg-lg);border:1px solid var(--line);border-radius:12px;padding:14px 18px;font-weight:600;color:var(--green3)}
   .box-endereco svg{width:20px;height:20px;fill:var(--green);flex:0 0 20px}
+  .units-mini{display:flex;flex-direction:column;gap:10px}
+  .unit-mini{display:flex;gap:12px;align-items:flex-start;background:var(--bg-lg);border:1px solid var(--line);border-radius:12px;padding:12px 15px;transition:.18s;color:var(--green3)}
+  .unit-mini:hover{border-color:var(--green);background:#fff}
+  .unit-mini svg{width:18px;height:18px;fill:var(--green);flex:0 0 18px;margin-top:2px}
+  .unit-mini .um-name{font-weight:700;font-size:14.5px;line-height:1.25;color:var(--green3)}
+  .unit-mini .um-addr{display:block;font-size:12.8px;color:#5b7d80;margin-top:2px}
   .rating-badge{display:inline-flex;align-items:center;gap:12px;margin-top:18px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 16px;box-shadow:var(--shadow)}
   .rating-badge img{width:30px;height:30px}
   .rating-badge .num{font-size:24px;font-weight:800;color:var(--green3)}
@@ -291,7 +297,7 @@
 <!-- ===================== BLOCO 1: BOAS-VINDAS DA UNIDADE ===================== -->
 <section class="block bg-lg unit-hero">
   <div class="container">
-    <h2 class="welcome">Bem-vindo à unidade <span>Sorocaba / Vergueiro</span></h2>
+    <h2 class="welcome">Bem-vindo às <span>Unidades de Sorocaba</span></h2>
     <div class="block-wrapper">
       <div class="image-wrapper">
         <img src="assets/uploads/2025/11/topo-centros-cdc-v2.jpg" alt="Clínica da Cidade - Sorocaba Vergueiro">
@@ -301,10 +307,20 @@
           <h3>Clínica médica popular com consultas e exames a preços acessíveis</h3>
           <span>A melhor alternativa ao Plano de Saúde e ao SUS, com serviços médicos sem fila de espera.</span>
         </div>
-        <a class="box-endereco" href="https://www.google.com/maps/place/?q=place_id:ChIJf9SsyMCLxZQRw2yKst0XxfA" target="_blank" rel="noopener">
-          <svg viewBox="0 0 16 16"><path d="M8 0a5 5 0 0 0-5 5c0 4 5 11 5 11s5-7 5-11a5 5 0 0 0-5-5zm0 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>
-          Avenida Barão de Tatuí, n° 514 – Jardim Vergueiro – Sorocaba/SP
-        </a>
+        <div class="units-mini">
+          <a class="unit-mini" href="https://www.google.com/maps/place/?q=place_id:ChIJf9SsyMCLxZQRw2yKst0XxfA" target="_blank" rel="noopener">
+            <svg viewBox="0 0 16 16"><path d="M8 0a5 5 0 0 0-5 5c0 4 5 11 5 11s5-7 5-11a5 5 0 0 0-5-5zm0 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>
+            <span><span class="um-name">Sorocaba / Vergueiro</span><span class="um-addr">Av. Barão de Tatuí, 514 – Jardim Vergueiro – Sorocaba/SP</span></span>
+          </a>
+          <a class="unit-mini" href="https://www.google.com/maps/place/?q=place_id:ChIJB0vM7SP1xZQR6OOZlDZzjrU" target="_blank" rel="noopener">
+            <svg viewBox="0 0 16 16"><path d="M8 0a5 5 0 0 0-5 5c0 4 5 11 5 11s5-7 5-11a5 5 0 0 0-5-5zm0 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>
+            <span><span class="um-name">Sorocaba / Zona Norte</span><span class="um-addr">Av. Itavuvu, 3018 – Jardim Santa Cecília – Sorocaba/SP</span></span>
+          </a>
+          <a class="unit-mini" href="https://www.google.com/maps/place/?q=place_id:ChIJ4Uiobmxhz5QR1u6j9aReRo0" target="_blank" rel="noopener">
+            <svg viewBox="0 0 16 16"><path d="M8 0a5 5 0 0 0-5 5c0 4 5 11 5 11s5-7 5-11a5 5 0 0 0-5-5zm0 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>
+            <span><span class="um-name">Votorantim</span><span class="um-addr">Av. 31 de Março, 809 – Centro – Votorantim/SP</span></span>
+          </a>
+        </div>
         <div class="rating-badge">
           <img src="assets/themes/clinica/assets/img/google-g.svg" alt="Google">
           <div>
