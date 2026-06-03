@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- ===== SEO: title e meta description focados na especialidade + cidade ===== -->
+<title>Pneumologista em Sorocaba | Clínica da Cidade</title>
+<meta name="description" content="Pneumologista em Sorocaba na Clínica da Cidade: consulta acessível, sem mensalidade e agendamento rápido. Avaliação 4,8/5 no Google. Agende já!">
+<link rel="canonical" href="https://www.clinicadacidade.com.br/especialidades/pneumologista-em-sorocaba/">
+<link rel="icon" href="https://www.clinicadacidade.com.br/wp-content/themes/clinica/assets/img/favicon-64.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  /* ===== Paleta EXATA extraída do tema da Clínica da Cidade ===== */
+  :root{
+    --green:#00A8BA;        /* primary */
+    --green2:#00808E;       /* títulos de seção (gr2) */
+    --dgreen:#005A64;       /* hover / destaque */
+    --green3:#00363D;       /* texto / títulos escuros (gr3) */
+    --lgreen:#D8F5F8;       /* bg-lg2 */
+    --bg-lg:#F0FEFF;        /* fundo de seções alternadas */
+    --bg-lg3:#C0EDF1;       /* blocos de contato */
+    --line:#E1F2F4;
+    --wapp:#25d366;
+    --radius:14px;
+    --shadow:0 12px 32px rgba(0,54,61,.08);
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',system-ui,Arial,sans-serif;font-weight:400;line-height:1.5;color:var(--green3);background:#fff}
+  a{color:var(--green3);text-decoration:none}
+  img{max-width:100%;display:block}
+  .container{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+  h1,h2,h3{line-height:1.2;color:var(--green3)}
+  .gr2{color:var(--green2)!important}
+  .gr3{color:var(--green3)!important}
+
+  /* ---------- Botões ---------- */
+  .btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;border-radius:8px;padding:13px 26px;font-size:16px;border:2px solid transparent;cursor:pointer;transition:.2s;line-height:1.2}
+  .btn-primary{background:var(--green);border-color:var(--green);color:#fff}
+  .btn-primary:hover{background:var(--green2);border-color:var(--green2)}
+  .btn-outline{background:#fff;color:var(--dgreen);border-color:var(--green)}
+  .btn-outline:hover{background:var(--lgreen)}
+  .btn svg{width:18px;height:18px;fill:currentColor;flex:0 0 18px}
+
+  /* ---------- Faixa de demonstração (NÃO faz parte da página final) ---------- */
+  .demo-bar{background:var(--green3);color:#eafcff;padding:11px 0;font-size:13.5px}
+  .demo-bar .container{display:flex;gap:14px;align-items:center;flex-wrap:wrap;justify-content:center;text-align:center}
+  .demo-bar .tag{background:#ffd84d;color:#3a2e00;font-weight:800;border-radius:6px;padding:3px 10px;font-size:11.5px;letter-spacing:.04em;white-space:nowrap}
+  .demo-bar strong{color:#7ee6f1}
+
+  /* ---------- Marcação "novo para SEO" ---------- */
+  .seo-flag{display:inline-flex;align-items:center;gap:6px;background:var(--green);color:#fff;font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:5px 12px;border-radius:999px;margin-bottom:16px}
+  .seo-flag::before{content:"+";font-size:15px;font-weight:800;line-height:1}
+
+  /* ---------- Header (fiel ao site) ---------- */
+  header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50}
+  .header-inner{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:16px 20px;max-width:var(--maxw);margin:0 auto}
+  .logo{height:46px}
+  .nav{display:flex;gap:24px;align-items:center}
+  .nav a{font-weight:500;font-size:15px;color:var(--green3)}
+  .nav a:hover{color:var(--green)}
+  .login-link{display:inline-flex;align-items:center;gap:8px;font-weight:600;color:var(--green3);font-size:14px}
+  .login-link .ic{width:36px;height:36px;border-radius:50%;background:var(--lgreen);display:flex;align-items:center;justify-content:center}
+  .login-link svg{width:18px;height:18px;fill:var(--dgreen)}
+  @media(max-width:980px){.nav{display:none}}
+
+  /* ---------- Breadcrumb ---------- */
+  .breadcrumb{background:var(--bg-lg);font-size:13.5px;color:#5b7d80}
+  .breadcrumb .container{padding-top:12px;padding-bottom:12px}
+  .breadcrumb a:hover{color:var(--green)}
+  .breadcrumb b{color:var(--green3)}
+
+  /* ---------- HERO ESPECIALIDADE (NOVO) ---------- */
+  .spec-hero{background:linear-gradient(180deg,var(--bg-lg) 0%,#fff 100%);padding:48px 0 34px;border-bottom:1px solid var(--line)}
+  .spec-hero h1{font-size:clamp(30px,5vw,46px);font-weight:800;color:var(--green3)}
+  .spec-hero h1 span{color:var(--green)}
+  .spec-hero .lead{font-size:18px;margin-top:16px;max-width:780px}
+  .spec-hero .hero-cta{margin-top:26px;display:flex;gap:14px;flex-wrap:wrap}
+  .spec-hero .micro{margin-top:20px;font-size:13.5px;color:#5b7d80;display:flex;gap:20px;flex-wrap:wrap}
+  .spec-hero .micro span{display:inline-flex;align-items:center;gap:7px}
+  .spec-hero .micro svg{width:16px;height:16px;fill:var(--green)}
+
+  /* ---------- Seções ---------- */
+  section.block{padding:54px 0}
+  section.bg-lg{background:var(--bg-lg)}
+  .title{font-weight:700}
+  h2.sec-title{font-size:28px;font-weight:700;margin-bottom:10px;color:var(--green2)}
+  .sec-sub{font-size:16px;color:var(--green3);opacity:.85;margin-bottom:30px;max-width:760px}
+
+  /* ---------- Texto especialidade (NOVO) ---------- */
+  .spec-text{display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:start}
+  .spec-text h2{font-size:26px;margin-bottom:14px;color:var(--green2)}
+  .spec-text p{margin-bottom:16px}
+  .spec-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow)}
+  .spec-card h3{font-size:19px;margin-bottom:14px;color:var(--green3)}
+  .spec-card ul{list-style:none}
+  .spec-card li{display:flex;gap:10px;padding:9px 0;border-bottom:1px dashed var(--line);font-size:15px}
+  .spec-card li:last-child{border-bottom:none}
+  .spec-card li::before{content:"";flex:0 0 18px;height:18px;margin-top:3px;border-radius:50%;background:var(--lgreen) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%2300A8BA'%3E%3Cpath d='M13.485 1.929a1 1 0 0 1 0 1.414l-7 7a1 1 0 0 1-1.414 0l-3-3A1 1 0 0 1 3.485 5.93L6 8.444l6.071-6.515a1 1 0 0 1 1.414 0z'/%3E%3C/svg%3E") no-repeat center/11px}
+  @media(max-width:820px){.spec-text{grid-template-columns:1fr}}
+
+  /* ---------- Bloco unidade / boas-vindas (fiel) ---------- */
+  .unit-hero h2.welcome{font-size:clamp(26px,4vw,38px);font-weight:800;margin-bottom:28px;color:var(--green3)}
+  .unit-hero h2.welcome span{color:var(--green)}
+  .block-wrapper{display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:stretch}
+  .block-wrapper .image-wrapper img{border-radius:var(--radius);height:100%;object-fit:cover;box-shadow:var(--shadow)}
+  .box-title h3{font-size:24px;margin-bottom:12px;color:var(--green2)}
+  .box-title span{display:block;font-size:16px;margin-bottom:18px}
+  .box-endereco{display:inline-flex;gap:10px;align-items:center;background:var(--bg-lg);border:1px solid var(--line);border-radius:12px;padding:14px 18px;font-weight:600;color:var(--green3)}
+  .box-endereco svg{width:20px;height:20px;fill:var(--green);flex:0 0 20px}
+  .rating-badge{display:inline-flex;align-items:center;gap:12px;margin-top:18px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 16px;box-shadow:var(--shadow)}
+  .rating-badge img{width:30px;height:30px}
+  .rating-badge .num{font-size:24px;font-weight:800;color:var(--green3)}
+  .stars{color:#fbbc05;font-size:16px;letter-spacing:1px}
+  .rating-badge small{display:block;color:#5b7d80;font-size:12px}
+  @media(max-width:820px){.block-wrapper{grid-template-columns:1fr}}
+
+  /* régua diferenciais */
+  .regua{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:34px}
+  .regua .col-w{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px;text-align:center;box-shadow:var(--shadow);display:flex;flex-direction:column;align-items:center;gap:12px}
+  .regua img{width:52px;height:52px}
+  .regua span{color:var(--green3);font-weight:600;font-size:15.5px}
+  @media(max-width:820px){.regua{grid-template-columns:repeat(2,1fr)}}
+
+  /* ---------- Galeria ---------- */
+  .gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .gallery a{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);aspect-ratio:4/3}
+  .gallery img{width:100%;height:100%;object-fit:cover;transition:.3s}
+  .gallery a:hover img{transform:scale(1.05)}
+  @media(max-width:900px){.gallery{grid-template-columns:repeat(2,1fr)}}
+
+  /* ---------- Vídeo ---------- */
+  .video-wrap{position:relative;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);max-height:460px}
+  .video-wrap img.thumb{width:100%;object-fit:cover}
+  .video-wrap .play{position:absolute;inset:0;margin:auto;width:84px;height:84px}
+  .video-wrap::after{content:"";position:absolute;inset:0;background:rgba(0,54,61,.18)}
+
+  /* ---------- Cards "o que podemos fazer" ---------- */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:30px;box-shadow:var(--shadow);border-top:5px solid var(--green)}
+  .card h3{font-size:20px;margin-bottom:12px;color:var(--green2)}
+  .card p{font-size:14.5px;margin-bottom:20px}
+  @media(max-width:820px){.cards{grid-template-columns:1fr}}
+
+  /* ---------- Como chegar ---------- */
+  .map-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:start}
+  .map-grid iframe{width:100%;height:380px;border:0;border-radius:var(--radius)}
+  .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .info-box{background:var(--bg-lg);border:1px solid var(--line);border-radius:12px;padding:16px 18px;font-size:14.5px;display:flex;gap:12px;align-items:flex-start}
+  .info-box svg{width:22px;height:22px;fill:var(--green);flex:0 0 22px;margin-top:2px}
+  .info-box b{display:block;color:var(--dgreen);font-size:12.5px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px}
+  .info-box.full{grid-column:1/-1}
+  .resp-box{margin-top:14px;background:var(--bg-lg3);border-radius:12px;padding:16px 18px;font-size:13.5px}
+  @media(max-width:820px){.map-grid,.info-grid{grid-template-columns:1fr}}
+
+  /* ---------- FAQ (padrão da clínica: 2 colunas) ---------- */
+  .faq-2col{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:start}
+  .faq-intro .sec-sub{margin-bottom:0}
+  .faq{width:100%}
+  @media(max-width:820px){.faq-2col{grid-template-columns:1fr;gap:24px}}
+  .faq details{background:#fff;border:1px solid var(--line);border-radius:12px;margin-bottom:12px;padding:0 20px;box-shadow:var(--shadow)}
+  .faq summary{cursor:pointer;font-weight:700;color:var(--green3);padding:18px 0;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+";color:var(--green);font-size:24px;font-weight:700}
+  .faq details[open] summary::after{content:"−"}
+  .faq .ans{padding:0 0 18px;font-size:14.5px}
+
+  /* ---------- Google reviews ---------- */
+  .rev-head{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:26px}
+  .rev-head .eyebrow{color:var(--green);font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.06em}
+  .rev-summary{display:flex;align-items:center;gap:10px}
+  .rev-summary strong{font-size:30px;color:var(--green3)}
+  .reviews{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  .rev-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
+  .rev-card .rc-head{display:flex;gap:12px;align-items:center;margin-bottom:8px}
+  .rev-card img.avatar{width:42px;height:42px;border-radius:50%}
+  .rev-card .name{font-weight:700;font-size:14.5px;color:var(--green3)}
+  .rev-card .when{font-size:12.5px;color:#7b9396}
+  .rev-card .g{width:16px;height:16px;margin-left:auto}
+  @media(max-width:980px){.reviews{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:560px){.reviews{grid-template-columns:1fr}}
+
+  /* ---------- CTA final ---------- */
+  .cta-final{background:linear-gradient(135deg,var(--green) 0%,var(--dgreen) 100%);color:#fff;text-align:center}
+  .cta-final h2{color:#fff;font-size:clamp(24px,4vw,34px)}
+  .cta-final p{max-width:640px;margin:14px auto 26px;opacity:.95}
+  .cta-final .btn-primary{background:#fff;border-color:#fff;color:var(--dgreen)}
+  .cta-final .btn-primary:hover{background:#eafeff;border-color:#eafeff}
+  .cta-final .btn-outline{background:transparent;color:#fff;border-color:rgba(255,255,255,.7)}
+  .cta-final .btn-outline:hover{background:rgba(255,255,255,.14)}
+
+  /* ---------- Footer (fiel: fundo escuro) ---------- */
+  footer{background:var(--green3);color:#bfe2e6;padding:46px 0 26px;font-size:14px}
+  footer .f-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:30px;padding-bottom:26px;border-bottom:1px solid rgba(255,255,255,.12)}
+  footer h3{color:#fff;font-size:17px;margin-bottom:12px}
+  footer .logo-cap{height:54px;margin-bottom:14px}
+  footer p{margin-bottom:14px;line-height:1.7}
+  footer .btn{font-size:14px;padding:11px 22px}
+  footer .socials{display:flex;gap:12px;margin-top:8px}
+  footer .socials a{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center}
+  footer .socials img{width:18px;height:18px}
+  footer .base{padding-top:20px;font-size:12.5px;color:#8fb6bb;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
+  @media(max-width:820px){footer .f-grid{grid-template-columns:1fr}}
+
+  /* ---------- Botões flutuantes (fiel) ---------- */
+  .floats{position:fixed;right:18px;bottom:18px;display:flex;flex-direction:column;gap:10px;z-index:60}
+  .floats a{display:flex;flex-direction:column;align-items:center;gap:2px;width:62px;padding:9px 4px;border-radius:14px;color:#fff;font-size:11px;font-weight:600;box-shadow:0 8px 20px rgba(0,0,0,.22)}
+  .floats .f-wapp{background:var(--wapp)}
+  .floats .f-agenda{background:var(--green)}
+  .floats .f-tel{background:var(--dgreen)}
+  .floats svg{width:24px;height:24px;fill:#fff}
+</style>
+</head>
+<body>
+
+<!-- ===================== FAIXA EXPLICATIVA (apenas para apresentação) ===================== -->
+<div class="demo-bar">
+  <div class="container">
+    <span class="tag">MODELO SEO · DEMONSTRAÇÃO</span>
+    <span>Novidades para SEO = <strong>título da especialidade</strong> + <strong>texto "O que faz o pneumologista"</strong>. Todo o restante é a página atual da unidade, fiel em cores e conteúdo.</span>
+  </div>
+</div>
+
+<!-- ===================== HEADER ===================== -->
+<header>
+  <div class="header-inner">
+    <a href="https://www.clinicadacidade.com.br"><img class="logo" src="https://www.clinicadacidade.com.br/wp-content/themes/clinica/assets/img/logo-clinica.svg" alt="Clínica da Cidade"></a>
+    <nav class="nav">
+      <a href="#">Quem Somos</a>
+      <a href="#">Centros Médicos</a>
+      <a href="#">Check-ups</a>
+      <a href="#">Consultas</a>
+      <a href="#">Exames</a>
+      <a href="#">Previnia</a>
+    </nav>
+    <a class="login-link" href="#agendar">
+      <span class="ic"><svg viewBox="0 0 16 16"><path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4"/></svg></span>
+      <span>Área do Paciente</span>
+    </a>
+  </div>
+</header>
+
+<!-- ===================== BREADCRUMB (NOVO) ===================== -->
+<div class="breadcrumb">
+  <div class="container">
+    <a href="#">Início</a> &nbsp;|&nbsp; <a href="#">Especialidades</a> &nbsp;|&nbsp; <b>Pneumologista em Sorocaba</b>
+  </div>
+</div>
+
+<!-- ===================== TOPO: HERO DA ESPECIALIDADE (NOVO PARA SEO) ===================== -->
+<section class="spec-hero">
+  <div class="container">
+    <span class="seo-flag">Novo para SEO</span>
+    <h1>Pneumologista em <span>Sorocaba</span></h1>
+    <p class="lead">Agende sua consulta com pneumologista em Sorocaba na Clínica da Cidade. Atendimento acessível, sem mensalidade e sem fila de espera, com a mesma qualidade de uma clínica particular.</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="https://wa.me/551535009800" target="_blank" rel="noopener">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592z"/></svg>
+        Agendar consulta
+      </a>
+    </div>
+    <div class="micro">
+      <span><svg viewBox="0 0 16 16"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.97 6.03-4.5 4.5a.75.75 0 0 1-1.06 0l-2-2 1.06-1.06L7 8.94l3.97-3.97 1 1.06z"/></svg> Sem mensalidade ou taxa de adesão</span>
+      <span><svg viewBox="0 0 16 16"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.97 6.03-4.5 4.5a.75.75 0 0 1-1.06 0l-2-2 1.06-1.06L7 8.94l3.97-3.97 1 1.06z"/></svg> Agendamento rápido</span>
+      <span><svg viewBox="0 0 16 16"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.97 6.03-4.5 4.5a.75.75 0 0 1-1.06 0l-2-2 1.06-1.06L7 8.94l3.97-3.97 1 1.06z"/></svg> Avaliação 4,8/5 no Google</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================== -->
+<!-- A PARTIR DAQUI: PÁGINA ATUAL DA UNIDADE (fiel em cores e layout) -->
+<!-- ============================================================== -->
+
+<!-- ===================== BLOCO 1: BOAS-VINDAS DA UNIDADE ===================== -->
+<section class="block bg-lg unit-hero">
+  <div class="container">
+    <h2 class="welcome">Bem-vindo à unidade <span>Sorocaba / Vergueiro</span></h2>
+    <div class="block-wrapper">
+      <div class="image-wrapper">
+        <img src="https://www.clinicadacidade.com.br/wp-content/uploads/2025/11/topo-centros-cdc-v2.jpg" alt="Clínica da Cidade - Sorocaba Vergueiro">
+      </div>
+      <div class="text-wrapper">
+        <div class="box-title">
+          <h3>Clínica médica popular com consultas e exames a preços acessíveis</h3>
+          <span>A melhor alternativa ao Plano de Saúde e ao SUS, com serviços médicos sem fila de espera.</span>
+        </div>
+        <a class="box-endereco" href="https://www.google.com/maps/place/?q=place_id:ChIJf9SsyMCLxZQRw2yKst0XxfA" target="_blank" rel="noopener">
+          <svg viewBox="0 0 16 16"><path d="M8 0a5 5 0 0 0-5 5c0 4 5 11 5 11s5-7 5-11a5 5 0 0 0-5-5zm0 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>
+          Avenida Barão de Tatuí, n° 514 – Jardim Vergueiro – Sorocaba/SP
+        </a>
+        <div class="rating-badge">
+          <img src="https://www.clinicadacidade.com.br/wp-content/themes/clinica/assets/img/google-g.svg" alt="Google">
+          <div>
+            <div><span class="num">4,8</span> <span class="stars">★★★★★</span></div>
+            <small>8.000 avaliações · verificadas pelo Google</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="regua">
+      <div class="col-w"><img src="https://www.clinicadacidade.com.br/wp-content/themes/clinica/assets/img/unidades/i-unidade-01.svg" alt=""><span>Agendamento rápido</span></div>
+      <div class="col-w"><img src="https://www.clinicadacidade.com.br/wp-content/themes/clinica/assets/img/unidades/i-unidade-02.svg" alt=""><span>Preços acessíveis</span></div>
+      <div class="col-w"><img src="https://www.clinicadacidade.com.br/wp-content/themes/clinica/assets/img/unidades/i-unidade-03.svg" alt=""><span>+20 especialidades</span></div>
+      <div class="col-w"><img src="https://www.clinicadacidade.com.br/wp-content/themes/clinica/assets/img/unidades/i-unidade-04.svg" alt=""><span>Saúde sem mensalidade</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TEXTO DA ESPECIALIDADE (NOVO PARA SEO) ===================== -->
+<section class="block">
+  <div class="container">
+    <span class="seo-flag">Novo para SEO</span>
+    <div class="spec-text">
+      <div>
+        <h2>O que faz o pneumologista?</h2>
+        <p>O pneumologista é o médico especialista na prevenção, no diagnóstico e no tratamento das doenças que afetam o sistema respiratório, como pulmões, brônquios, traqueia e vias aéreas. É o profissional indicado para quem convive com sintomas respiratórios persistentes ou doenças crônicas como asma e bronquite.</p>
+        <p>Na Clínica da Cidade em Sorocaba, a consulta com pneumologista começa com uma conversa detalhada sobre seus sintomas e histórico (anamnese), seguida do exame clínico do tórax. Quando necessário, o médico solicita exames complementares — como raio X de tórax, espirometria (prova de função pulmonar) e oximetria — que você também realiza na própria unidade, com agilidade e preços acessíveis.</p>
+        <p>Entre as condições mais tratadas estão asma, bronquite, pneumonia, rinite, sinusite, apneia do sono, DPOC, enfisema e tosse crônica.</p>
+      </div>
+      <div class="spec-card">
+        <h3>Quando procurar um pneumologista?</h3>
+        <ul>
+          <li>Falta de ar ou cansaço sem esforço</li>
+          <li>Tosse persistente ou com sangue</li>
+          <li>Chiado ou dor no peito</li>
+          <li>Crises de asma ou bronquite</li>
+          <li>Roncos e apneia do sono</li>
+          <li>Nariz entupido com frequência</li>
+          <li>Acompanhamento de fumantes e ex-fumantes</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== GALERIA DE FOTOS ===================== -->
+<section class="block bg-lg">
+  <div class="container">
+    <h2 class="sec-title">Galeria de Fotos</h2>
+    <div class="gallery">
+      <a href="#"><img src="https://www.clinicadacidade.com.br/wp-content/uploads/2025/11/Sorocaba-I-1024x683.jpg" alt="Clínica da Cidade Sorocaba"></a>
+      <a href="#"><img src="https://www.clinicadacidade.com.br/wp-content/uploads/2025/11/3d9922af-foto-1-sorocaba-scaledv2-683x1024.jpg" alt="Recepção Sorocaba"></a>
+      <a href="#"><img src="https://www.clinicadacidade.com.br/wp-content/uploads/2025/11/012f32b7-foto-3-sorocaba.jpg" alt="Consultório Sorocaba"></a>
+      <a href="#"><img src="https://www.clinicadacidade.com.br/wp-content/uploads/2025/11/cd6c2f23-foto-4-sorocaba.jpg" alt="Sala de espera Sorocaba"></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== VÍDEO INSTITUCIONAL ===================== -->
+<section class="block">
+  <div class="container">
+    <h2 class="sec-title">Saúde que cabe no bolso</h2>
+    <a class="video-wrap" href="https://www.youtube.com/watch?v=qIvgGCpfetI" target="_blank" rel="noopener" style="display:block">
+      <img class="thumb" src="https://www.clinicadacidade.com.br/wp-content/themes/clinica/assets/img/home/full-video-thumb.jpg" alt="Vídeo institucional da Clínica da Cidade">
+      <img class="play" src="https://www.clinicadacidade.com.br/wp-content/themes/clinica/assets/img/unidades/i-play.svg" alt="Reproduzir vídeo" style="z-index:2">
+    </a>
+  </div>
+</section>
+
+<!-- ===================== O QUE PODEMOS FAZER ===================== -->
+<section class="block bg-lg">
+  <div class="container">
+    <h2 class="sec-title">O que podemos fazer por você</h2>
+    <p class="sec-sub">Além da consulta com pneumologista, na unidade de Sorocaba você encontra a estrutura completa da Clínica da Cidade.</p>
+    <div class="cards">
+      <div class="card">
+        <h3>Consultas Médicas</h3>
+        <p>Atendimento presencial ou online por Teleconsulta. Sua saúde com alta qualidade e o toque humano que você merece.</p>
+        <a class="btn btn-primary" href="#agendar">Saiba mais</a>
+      </div>
+      <div class="card">
+        <h3>Exames Laboratoriais e de Imagem</h3>
+        <p>Infraestrutura moderna para realizar seus exames com agilidade e resultados confiáveis, garantindo um diagnóstico preciso.</p>
+        <a class="btn btn-primary" href="#agendar">Saiba mais</a>
+      </div>
+      <div class="card">
+        <h3>Pacotes de Check-ups</h3>
+        <p>Prevenção é o melhor remédio. Mantenha a saúde em dia com a tranquilidade de saber que está tudo bem.</p>
+        <a class="btn btn-primary" href="#agendar">Saiba mais</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== COMO CHEGAR ===================== -->
+<section class="block">
+  <div class="container">
+    <h2 class="sec-title">Como chegar</h2>
+    <p class="sec-sub">Unidade Sorocaba / Vergueiro — com estacionamento próprio.</p>
+    <div class="map-grid">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14634.710631995598!2d-47.4624056!3d-23.5081172!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94c58bc0c8acd47f%3A0xf0c517ddb28a6cc3!2sCl%C3%ADnica%20da%20Cidade!5e0!3m2!1spt-BR!2sbr!4v1725051054135!5m2!1spt-BR!2sbr" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <div>
+        <div class="info-grid">
+          <div class="info-box full">
+            <svg viewBox="0 0 16 16"><path d="M8 0a5 5 0 0 0-5 5c0 4 5 11 5 11s5-7 5-11a5 5 0 0 0-5-5zm0 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>
+            <span><b>Endereço</b>Avenida Barão de Tatuí, n° 514 – Jardim Vergueiro – Sorocaba/SP</span>
+          </div>
+          <div class="info-box">
+            <svg viewBox="0 0 16 16"><path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2 .496-.868L8 8.71V3.5z"/><path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/></svg>
+            <span><b>Funcionamento</b>2ª a 6ª: 7h às 20h<br>Sábado: 7h às 14h</span>
+          </div>
+          <div class="info-box">
+            <svg viewBox="0 0 16 16"><path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58z"/></svg>
+            <span><b>Telefone / WhatsApp</b>(15) 3500-9800</span>
+          </div>
+          <div class="info-box">
+            <svg viewBox="0 0 16 16"><path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/></svg>
+            <span><b>Facebook</b>Clínica da Cidade Sorocaba</span>
+          </div>
+          <div class="info-box">
+            <svg viewBox="0 0 16 16"><path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm0 5.838a2.163 2.163 0 1 0 0 4.327 2.163 2.163 0 0 0 0-4.327zm0 3.568a1.405 1.405 0 1 1 0-2.81 1.405 1.405 0 0 1 0 2.81zm2.846-3.66a.505.505 0 1 1-1.01 0 .505.505 0 0 1 1.01 0z"/></svg>
+            <span><b>Instagram</b>@clinicadacidadesorocaba</span>
+          </div>
+        </div>
+        <div class="resp-box">
+          <b>Responsável Técnico:</b> José Mário Grecco D'Elia — CRM 42077 · <b>CNPJ Unidade:</b> 29.432.345/0001-04
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PERGUNTAS FREQUENTES (padrão atual da clínica) ===================== -->
+<section class="block bg-lg">
+  <div class="container">
+    <div class="faq-2col">
+      <div class="faq-intro">
+        <h2 class="sec-title">Perguntas Frequentes</h2>
+        <p class="sec-sub">Para facilitar sua experiência, preparamos uma lista de perguntas frequentes com respostas rápidas e claras sobre nossos serviços e processos.</p>
+      </div>
+      <div class="faq">
+        <details open>
+          <summary>Qual a diferença entre a Clínica da Cidade e uma clínica popular?</summary>
+          <div class="ans">A principal diferença está na qualidade e no propósito. Somos uma rede de medicina acessível, que oferece a mesma qualidade e tecnologia de clínicas particulares, mas com preços que cabem no seu bolso. Nossos profissionais são qualificados e nossas unidades contam com tecnologia de ponta, sem a longa espera ou a falta de estrutura das clínicas populares.</div>
+        </details>
+        <details>
+          <summary>Tenho plano de saúde, posso pedir reembolso?</summary>
+          <div class="ans">Sim, dependendo do seu Plano de Saúde, você pode pedir o reembolso de qualquer serviço na Clínica da Cidade. Exames de todos os tipos, check-ups e consultas.</div>
+        </details>
+        <details>
+          <summary>Quais taxas preciso pagar a mais?</summary>
+          <div class="ans">Na Clínica da Cidade, a transparência é fundamental. O valor informado no momento do agendamento é o preço final. Não existe nenhuma taxa a mais para ser paga, nem de agendamento e nem de qualquer outro serviço. O preço da sua consulta ou exame é único e sem surpresas.</div>
+        </details>
+        <details>
+          <summary>Posso agendar exames ou consultas para o mesmo dia?</summary>
+          <div class="ans">Sim! Uma das nossas principais vantagens é a agilidade. Dependendo da disponibilidade da unidade e do tipo de exame e especialidade, é possível agendar para o mesmo dia, sem a necessidade de longas esperas.</div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== AVALIAÇÕES NO GOOGLE ===================== -->
+<section class="block">
+  <div class="container">
+    <div class="rev-head">
+      <div>
+        <span class="eyebrow">Avaliações no Google</span>
+        <h2 class="sec-title" style="margin-bottom:0">Avaliações recentes de pacientes</h2>
+      </div>
+      <div class="rev-summary">
+        <strong>4,8</strong>
+        <div>
+          <div class="stars">★★★★★</div>
+          <a href="https://maps.google.com/?cid=17349299380465331395" target="_blank" rel="noopener" style="font-size:13px;color:var(--dgreen)">8.000 avaliações</a>
+        </div>
+      </div>
+    </div>
+    <div class="reviews">
+      <article class="rev-card">
+        <div class="rc-head">
+          <img class="avatar" src="https://lh3.googleusercontent.com/a-/ALV-UjUSbUF__ovu8LuFP1xsUpaEB3LRXnWAvAZzj5DxrXAEagDtsOwR=s128-c0x00000000-cc-rp-mo" alt="" referrerpolicy="no-referrer">
+          <div><div class="name">Cicera Melo</div><div class="when">na última semana</div></div>
+          <img class="g" src="https://www.clinicadacidade.com.br/wp-content/themes/clinica/assets/img/google-g.svg" alt="Google">
+        </div>
+        <div class="stars">★★★★★</div>
+      </article>
+      <article class="rev-card">
+        <div class="rc-head">
+          <img class="avatar" src="https://lh3.googleusercontent.com/a/ACg8ocKsSg6AfFWCL3AQ05luesfTHvxaxbctoVY06fLCYgpUiU8IIg=s128-c0x00000000-cc-rp-mo" alt="" referrerpolicy="no-referrer">
+          <div><div class="name">Andreia De Souza</div><div class="when">na última semana</div></div>
+          <img class="g" src="https://www.clinicadacidade.com.br/wp-content/themes/clinica/assets/img/google-g.svg" alt="Google">
+        </div>
+        <div class="stars">★★★★★</div>
+      </article>
+      <article class="rev-card">
+        <div class="rc-head">
+          <img class="avatar" src="https://lh3.googleusercontent.com/a/ACg8ocLjWsMbfFmbwpCVsGxY7kMH6coWI3ttL9ovX_H6PTWCa7rsRg=s128-c0x00000000-cc-rp-mo" alt="" referrerpolicy="no-referrer">
+          <div><div class="name">Maria Salete</div><div class="when">na última semana</div></div>
+          <img class="g" src="https://www.clinicadacidade.com.br/wp-content/themes/clinica/assets/img/google-g.svg" alt="Google">
+        </div>
+        <div class="stars">★★★★★</div>
+      </article>
+      <article class="rev-card">
+        <div class="rc-head">
+          <img class="avatar" src="https://lh3.googleusercontent.com/a-/ALV-UjUgVOfJu13XZHR0ZJVxdGb2pYUplj9Dio2QcraXPeHpem7xPRRU9Q=s128-c0x00000000-cc-rp-mo-ba4" alt="" referrerpolicy="no-referrer">
+          <div><div class="name">Tomas Andre Santos</div><div class="when">na última semana</div></div>
+          <img class="g" src="https://www.clinicadacidade.com.br/wp-content/themes/clinica/assets/img/google-g.svg" alt="Google">
+        </div>
+        <div class="stars">★★★★★</div>
+      </article>
+    </div>
+    <div style="margin-top:26px">
+      <a class="btn btn-outline" href="https://maps.google.com/?cid=17349299380465331395" target="_blank" rel="noopener">Ver avaliações no Google</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CTA FINAL ===================== -->
+<section class="block cta-final" id="agendar">
+  <div class="container">
+    <h2>Agende seu pneumologista em Sorocaba</h2>
+    <p>Cuide da sua saúde respiratória com atendimento de qualidade e preço que cabe no bolso. Escolha a forma mais prática para você.</p>
+    <div class="hero-cta" style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center">
+      <a class="btn btn-primary" href="https://wa.me/551535009800" target="_blank" rel="noopener">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592z"/></svg>
+        Agendar pelo WhatsApp
+      </a>
+      <a class="btn btn-outline" href="tel:+551535009800">Ligar (15) 3500-9800</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="container">
+    <div class="f-grid">
+      <div>
+        <img class="logo-cap" src="https://www.clinicadacidade.com.br/wp-content/themes/clinica/assets/img/logo-cap.png" alt="Central de Atenção ao Paciente">
+        <h3>Nós queremos te ouvir</h3>
+        <p>Fale conosco, sua sugestão é muito importante para nós!</p>
+        <a class="btn btn-primary" href="#">Fale conosco</a>
+      </div>
+      <div>
+        <h3>Seja um Parceiro</h3>
+        <p>Faça parte da maior rede de clínicas particulares acessíveis do Brasil.</p>
+        <a class="btn btn-outline" href="#" style="color:#fff;border-color:rgba(255,255,255,.5)">Quero fazer parte</a>
+      </div>
+      <div>
+        <h3>Fique conectado</h3>
+        <p>Dicas exclusivas e novidades da Clínica da Cidade.</p>
+        <div class="socials">
+          <a href="https://www.instagram.com/clinicadacidade/" target="_blank" rel="noopener"><img src="https://www.clinicadacidade.com.br/wp-content/themes/clinica/assets/img/i-insta.svg" alt="Instagram"></a>
+          <a href="https://www.facebook.com/clinicadacidade" target="_blank" rel="noopener"><img src="https://www.clinicadacidade.com.br/wp-content/themes/clinica/assets/img/i-face.svg" alt="Facebook"></a>
+          <a href="https://www.youtube.com/ClinicadaCidadeOficial" target="_blank" rel="noopener"><img src="https://www.clinicadacidade.com.br/wp-content/themes/clinica/assets/img/i-yt.svg" alt="YouTube"></a>
+          <a href="https://www.linkedin.com/company/clinicadacidade/" target="_blank" rel="noopener"><img src="https://www.clinicadacidade.com.br/wp-content/themes/clinica/assets/img/i-ld.svg" alt="LinkedIn"></a>
+        </div>
+      </div>
+    </div>
+    <div class="base">
+      <span>Clínica Da Cidade Franchising LTDA © 2026 · Medicina acessível há mais de 20 anos.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ===================== BOTÕES FLUTUANTES ===================== -->
+<div class="floats">
+  <a class="f-wapp" href="https://wa.me/551535009800" target="_blank" rel="noopener">
+    <svg viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592z"/></svg>
+    WhatsApp
+  </a>
+  <a class="f-agenda" href="https://www.clinicadacidade.com.br/agendamento/?areaid=sc1671bd021acf80" target="_blank" rel="noopener">
+    <svg viewBox="0 0 16 16"><path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/></svg>
+    Agendar
+  </a>
+  <a class="f-tel" href="tel:+551535009800">
+    <svg viewBox="0 0 16 16"><path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58z"/></svg>
+    Ligar
+  </a>
+</div>
+
+</body>
+</html>
