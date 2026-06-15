@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Análise de CRO · Clínica da Cidade vs Doctoralia</title>
+<style>
+  :root{
+    --bg:#0b1320;
+    --bg-2:#0f1a2e;
+    --panel:#13203a;
+    --ink:#eaf1ff;
+    --muted:#9fb0cc;
+    --line:rgba(255,255,255,.10);
+    --cc:#13a3a8;      /* Clínica da Cidade */
+    --cc-soft:#0e2a30;
+    --dr:#00a37a;      /* Doctoralia */
+    --dr-soft:#0a2a22;
+    --warn:#ff6b6b;
+    --good:#37d39b;
+    --accent:#5b8cff;
+    --radius:18px;
+    --shadow:0 30px 80px rgba(0,0,0,.45);
+    font-synthesis:none;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    background:radial-gradient(1200px 800px at 80% -10%,#16264a 0%,var(--bg) 55%);
+    color:var(--ink);
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow:hidden;
+  }
+
+  /* ---------- Deck ---------- */
+  .deck{height:100vh;width:100vw;position:relative}
+  .slide{
+    position:absolute;inset:0;
+    display:none;
+    padding:6vh 6vw 9vh;
+    flex-direction:column;
+    animation:fade .5s ease;
+    overflow:auto;
+  }
+  .slide.active{display:flex}
+  @keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:.55rem;
+    font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--muted);font-weight:600;margin:0 0 1rem;
+  }
+  .eyebrow::before{content:"";width:26px;height:2px;background:var(--accent);border-radius:2px}
+  h1{font-size:clamp(2rem,5vw,4rem);line-height:1.05;margin:.2rem 0 1rem;font-weight:800;letter-spacing:-.02em}
+  h2{font-size:clamp(1.6rem,3.4vw,2.6rem);line-height:1.1;margin:.2rem 0 1.4rem;font-weight:800;letter-spacing:-.02em}
+  h3{font-size:1.15rem;margin:0 0 .5rem;font-weight:700}
+  p{color:var(--muted);font-size:clamp(1rem,1.4vw,1.18rem);line-height:1.6;max-width:60ch}
+  .lead{font-size:clamp(1.1rem,1.7vw,1.5rem);color:var(--ink);max-width:64ch}
+  .big{font-weight:800}
+
+  /* ---------- Cover ---------- */
+  .cover{justify-content:center}
+  .cover .vs{
+    display:flex;gap:1rem;align-items:center;margin-top:2rem;flex-wrap:wrap;
+  }
+  .pill{
+    display:inline-flex;align-items:center;gap:.6rem;padding:.7rem 1.1rem;border-radius:999px;
+    border:1px solid var(--line);background:rgba(255,255,255,.03);font-weight:600
+  }
+  .dot{width:11px;height:11px;border-radius:50%}
+  .dot.cc{background:var(--cc)}
+  .dot.dr{background:var(--dr)}
+  .cover .meta{margin-top:3rem;color:var(--muted);font-size:.95rem}
+
+  /* ---------- Layout helpers ---------- */
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:2.2rem;align-items:start}
+  .grid-split{display:grid;grid-template-columns:1.05fr .95fr;gap:2.6rem;align-items:center;flex:1;min-height:0}
+  .stack{display:flex;flex-direction:column;gap:1rem}
+  .grid-split .stack{
+    background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));
+    border:1px solid var(--line);border-left:3px solid var(--accent);
+    border-radius:16px;padding:1.5rem 1.8rem;gap:.2rem;box-shadow:var(--shadow);
+  }
+  .center{align-items:center;text-align:center}
+
+  /* ---------- Figure / screenshots ---------- */
+  figure{margin:0;display:flex;flex-direction:column;gap:.7rem;min-height:0}
+  .shot{
+    position:relative;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);
+    background:#0a1424;box-shadow:var(--shadow);cursor:zoom-in;
+  }
+  .shot img{display:block;width:100%;height:auto}
+  .shot .tag{
+    position:absolute;top:14px;left:14px;z-index:2;
+    font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    padding:.4rem .7rem;border-radius:999px;color:#02110d;
+  }
+  .tag.cc{background:var(--cc)}
+  .tag.dr{background:var(--dr);color:#021a13}
+  figcaption{color:var(--muted);font-size:.95rem;line-height:1.45}
+  figcaption b{color:var(--ink)}
+
+  .frame-cc{box-shadow:0 0 0 2px var(--cc) inset, var(--shadow)}
+  .frame-dr{box-shadow:0 0 0 2px var(--dr) inset, var(--shadow)}
+
+  /* ---------- Cards ---------- */
+  .cards{display:grid;gap:1rem}
+  .card{
+    background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.015));
+    border:1px solid var(--line);border-radius:16px;padding:1.2rem 1.3rem;
+  }
+  .card.cc{border-top:3px solid var(--cc)}
+  .card.dr{border-top:3px solid var(--dr)}
+  .card h3{display:flex;align-items:center;gap:.6rem}
+  .card p{font-size:1rem;margin:0}
+
+  /* ---------- Journey ---------- */
+  .journey{display:flex;flex-direction:column;gap:.65rem}
+  .step{
+    display:flex;align-items:center;gap:.7rem;flex-wrap:wrap;
+    padding:.7rem .9rem;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.025)
+  }
+  .step .n{
+    flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;
+    font-size:.8rem;font-weight:800;color:#02110d
+  }
+  .cc .n{background:var(--cc)} .dr .n{background:var(--dr);color:#021a13}
+  .step span{font-size:.98rem}
+  .arrow{color:var(--muted);font-weight:700;text-align:center;opacity:.6;font-size:.9rem}
+  .friction{color:var(--warn);font-weight:700;font-size:.8rem;border:1px solid rgba(255,107,107,.35);
+    background:rgba(255,107,107,.08);padding:.15rem .5rem;border-radius:999px}
+  .frictionless{color:var(--good);font-weight:700;font-size:.8rem;border:1px solid rgba(55,211,155,.35);
+    background:rgba(55,211,155,.08);padding:.15rem .5rem;border-radius:999px}
+
+  .metric{display:flex;gap:1.4rem;flex-wrap:wrap;margin-top:1rem}
+  .metric .m{min-width:120px}
+  .metric .v{font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:800;letter-spacing:-.02em}
+  .metric .v.cc{color:var(--cc)} .metric .v.dr{color:var(--dr)} .metric .v.warn{color:var(--warn)}
+  .metric .k{color:var(--muted);font-size:.85rem}
+
+  ul.clean{list-style:none;padding:0;margin:0;display:flex;flex-direction:column}
+  ul.clean li{
+    position:relative;padding:.8rem 0 .8rem 2.5rem;color:var(--ink);
+    font-size:1.04rem;line-height:1.55;border-bottom:1px solid var(--line);
+  }
+  ul.clean li:last-child{border-bottom:0;padding-bottom:.2rem}
+  ul.clean li b{color:#fff;font-weight:700}
+  ul.clean li::before{
+    position:absolute;left:0;top:.8rem;
+    content:"\203A";width:24px;height:24px;border-radius:8px;
+    display:grid;place-items:center;font-size:.9rem;font-weight:800;line-height:1;
+    background:rgba(91,140,255,.16);color:var(--accent);
+  }
+  li.bad::before{content:"\2715";background:rgba(255,107,107,.16);color:var(--warn)}
+  li.good::before{content:"\2713";background:rgba(55,211,155,.16);color:var(--good)}
+
+  .rec{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem;margin-top:.5rem}
+  .rec .card .num{font-size:.8rem;color:var(--accent);font-weight:800;letter-spacing:.1em}
+
+  /* ---------- Leaders board ---------- */
+  .leaders{display:flex;flex-direction:column;gap:.9rem;margin:.4rem 0 0;max-width:none}
+  .leader{
+    display:grid;grid-template-columns:42px 1.1fr 2fr auto;align-items:center;gap:1.2rem;
+    padding:1rem 1.3rem;border-radius:14px;border:1px solid var(--line);
+    background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.015));
+  }
+  .leader.hl{border:1px solid var(--dr);background:linear-gradient(180deg,rgba(0,163,122,.16),rgba(0,163,122,.05))}
+  .leader .rank{font-size:1.3rem;font-weight:800;color:var(--muted);font-variant-numeric:tabular-nums}
+  .leader.hl .rank{color:var(--dr)}
+  .leader .who{display:flex;flex-direction:column;gap:.15rem}
+  .leader .who b{font-size:1.15rem;letter-spacing:-.01em}
+  .leader .who small{color:var(--muted);font-size:.82rem}
+  .badge-ex{display:inline-block;margin-top:.2rem;width:fit-content;font-size:.66rem;font-weight:800;
+    letter-spacing:.1em;text-transform:uppercase;color:#021a13;background:var(--dr);padding:.18rem .5rem;border-radius:999px}
+  .bar{height:12px;border-radius:999px;background:rgba(255,255,255,.07);overflow:hidden}
+  .bar i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--accent),var(--cc))}
+  .leader.hl .bar i{background:linear-gradient(90deg,var(--dr),#37d39b)}
+  .visits{text-align:right;min-width:130px}
+  .visits b{font-size:1.5rem;font-weight:800;letter-spacing:-.02em}
+  .visits small{display:block;color:var(--muted);font-size:.74rem}
+
+  /* ---------- Chrome / nav ---------- */
+  .topbar{position:fixed;top:0;left:0;right:0;height:5px;background:rgba(255,255,255,.06);z-index:40}
+  .progress{height:100%;width:0;background:linear-gradient(90deg,var(--cc),var(--dr));transition:width .35s ease}
+  .brandmark{position:fixed;top:18px;left:26px;z-index:30;font-weight:800;letter-spacing:-.01em;font-size:.95rem;opacity:.9}
+  .brandmark small{display:block;font-weight:500;color:var(--muted);letter-spacing:.04em;font-size:.72rem}
+  .nav{position:fixed;bottom:18px;right:26px;z-index:30;display:flex;gap:.5rem;align-items:center}
+  .nav button{
+    width:42px;height:42px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.05);
+    color:var(--ink);font-size:1.1rem;cursor:pointer;transition:.15s;display:grid;place-items:center
+  }
+  .nav button:hover{background:rgba(255,255,255,.12)}
+  .counter{position:fixed;bottom:26px;left:26px;z-index:30;color:var(--muted);font-size:.85rem;font-variant-numeric:tabular-nums}
+  .counter b{color:var(--ink)}
+  .hint{position:fixed;bottom:26px;left:50%;transform:translateX(-50%);z-index:30;color:var(--muted);font-size:.78rem;opacity:.7}
+
+  /* ---------- Lightbox ---------- */
+  .lb{position:fixed;inset:0;background:rgba(4,8,16,.92);z-index:100;display:none;place-items:center;padding:4vh 4vw;cursor:zoom-out}
+  .lb.open{display:grid}
+  .lb img{max-width:100%;max-height:92vh;border-radius:12px;box-shadow:var(--shadow);border:1px solid var(--line)}
+
+  @media (max-width:900px){
+    .grid2,.grid-split,.rec{grid-template-columns:1fr}
+    .slide{padding:8vh 6vw 12vh}
+    .hint{display:none}
+  }
+</style>
+</head>
+<body>
+<div class="topbar"><div class="progress" id="progress"></div></div>
+<div class="brandmark">Análise de CRO<small>Clínica da Cidade × Doctoralia</small></div>
+
+<div class="deck" id="deck">
+
+  <!-- 1 · CAPA -->
+  <section class="slide active cover">
+    <p class="eyebrow">Conversion Rate Optimization · Junho 2026</p>
+    <h1>Por que o usuário<br>desiste antes de agendar?</h1>
+    <p class="lead">Uma análise visual da jornada de conversão da <b style="color:var(--ink)">Clínica da Cidade</b>
+       comparada com o principal benchmark do setor, a <b style="color:var(--ink)">Doctoralia</b>.</p>
+    <div class="vs">
+      <span class="pill"><span class="dot cc"></span> Clínica da Cidade · o cliente</span>
+      <span class="pill"><span class="dot dr"></span> Doctoralia · o concorrente</span>
+    </div>
+    <p class="meta">Todas as telas deste documento são capturas reais dos sites em produção.</p>
+  </section>
+
+  <!-- 2 · LÍDERES DO MERCADO -->
+  <section class="slide">
+    <p class="eyebrow">Quem analisamos</p>
+    <h2>Os líderes do Brasil em consulta médica</h2>
+    <p class="lead" style="margin-bottom:1.6rem">
+      Estudamos as maiores plataformas de agendamento de consultas do país. Apesar das diferenças,
+      <b style="color:var(--ink)">todas seguem a mesma estratégia central de CRO/conversão</b>:
+      navegação por serviço, profissionais visíveis e agendamento na própria plataforma.
+      Nesta apresentação usamos a <b style="color:var(--dr)">Doctoralia</b> como exemplo por ser a referência líder.
+    </p>
+    <div class="leaders">
+      <div class="leader hl">
+        <div class="rank">1º</div>
+        <div class="who">
+          <b>Doctoralia.com.br</b>
+          <span class="badge-ex">Exemplo usado nesta análise</span>
+        </div>
+        <div class="bar"><i style="width:100%"></i></div>
+        <div class="visits"><b>~3 mi</b><small>acessos/mês (est.)</small></div>
+      </div>
+      <div class="leader">
+        <div class="rank">2º</div>
+        <div class="who"><b>boaconsulta.com.br</b><small>Marketplace de consultas e exames</small></div>
+        <div class="bar"><i style="width:67%"></i></div>
+        <div class="visits"><b>~2 mi</b><small>acessos/mês (est.)</small></div>
+      </div>
+      <div class="leader">
+        <div class="rank">3º</div>
+        <div class="who"><b>drconsulta.com</b><small>Rede de centros médicos + agendamento</small></div>
+        <div class="bar"><i style="width:67%"></i></div>
+        <div class="visits"><b>~2 mi</b><small>acessos/mês (est.)</small></div>
+      </div>
+      <div class="leader">
+        <div class="rank">4º</div>
+        <div class="who"><b>conexasaude.com.br</b><small>Telemedicina e agendamento online</small></div>
+        <div class="bar"><i style="width:23%"></i></div>
+        <div class="visits"><b>~680 mil</b><small>acessos/mês (est.)</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · A TESE -->
+  <section class="slide">
+    <p class="eyebrow">A diferença que muda tudo</p>
+    <h2>Dois modelos opostos de navegação</h2>
+    <div class="grid2">
+      <div class="card cc">
+        <h3><span class="dot cc"></span> Clínica da Cidade — navega por <u>UNIDADE</u></h3>
+        <p>O site organiza tudo por <b style="color:var(--ink)">localização física</b>. O usuário escolhe uma clínica,
+           cai numa página institucional e é empurrado para o <b style="color:var(--warn)">WhatsApp</b>, onde um atendente
+           humano descobre, manualmente, qual especialidade e profissional ele precisa.</p>
+      </div>
+      <div class="card dr">
+        <h3><span class="dot dr"></span> Doctoralia — navega por <u>SERVIÇO</u></h3>
+        <p>O site organiza tudo por <b style="color:var(--ink)">necessidade do paciente</b> (especialidade, sintoma, nome).
+           Em seguida já mostra <b style="color:var(--ink)">profissionais reais com foto, avaliações, preço e agenda</b> —
+           e o agendamento acontece ali mesmo, sem intermediários.</p>
+      </div>
+    </div>
+    <p class="lead" style="margin-top:2rem">
+      Resultado: na Clínica da Cidade a conversão depende de <b style="color:var(--ink)">uma pessoa respondendo o WhatsApp</b>.
+      Na Doctoralia, a plataforma converte <b style="color:var(--ink)">sozinha, 24/7</b>.
+    </p>
+  </section>
+
+  <!-- 3 · JORNADA COMPARADA -->
+  <section class="slide">
+    <p class="eyebrow">Jornada do usuário · do acesso ao agendamento</p>
+    <h2>Quantos passos até marcar uma consulta?</h2>
+    <div class="grid2">
+      <div>
+        <h3 style="margin-bottom:.8rem;color:var(--cc)">Clínica da Cidade</h3>
+        <div class="journey">
+          <div class="step cc"><span class="n">1</span><span>Entra no site</span></div>
+          <div class="arrow">↓</div>
+          <div class="step cc"><span class="n">2</span><span>Procura a <b>unidade</b> mais próxima</span></div>
+          <div class="arrow">↓</div>
+          <div class="step cc"><span class="n">3</span><span>Lê a página institucional da clínica</span></div>
+          <div class="arrow">↓</div>
+          <div class="step cc"><span class="n">4</span><span>Clica no <b>WhatsApp</b> <span class="friction">sai do site</span></span></div>
+          <div class="arrow">↓</div>
+          <div class="step cc"><span class="n">5</span><span>Espera um <b>atendente</b> responder <span class="friction">horário comercial</span></span></div>
+          <div class="arrow">↓</div>
+          <div class="step cc"><span class="n">6</span><span>Descobre especialidade, profissional, preço e horário <span class="friction">manual</span></span></div>
+        </div>
+      </div>
+      <div>
+        <h3 style="margin-bottom:.8rem;color:var(--dr)">Doctoralia</h3>
+        <div class="journey">
+          <div class="step dr"><span class="n">1</span><span>Entra no site</span></div>
+          <div class="arrow">↓</div>
+          <div class="step dr"><span class="n">2</span><span>Busca pelo <b>serviço / especialidade</b></span></div>
+          <div class="arrow">↓</div>
+          <div class="step dr"><span class="n">3</span><span>Vê <b>profissionais</b> com foto, nota e preço</span></div>
+          <div class="arrow">↓</div>
+          <div class="step dr"><span class="n">4</span><span>Escolhe o <b>horário</b> na agenda exibida <span class="frictionless">self-service</span></span></div>
+          <div class="arrow">↓</div>
+          <div class="step dr"><span class="n">5</span><span>Confirma a consulta <b>na própria plataforma</b> <span class="frictionless">24/7</span></span></div>
+        </div>
+      </div>
+    </div>
+    <div class="metric">
+      <div class="m"><div class="v warn">6</div><div class="k">passos + dependência humana</div></div>
+      <div class="m"><div class="v dr">5</div><div class="k">passos · 100% self-service</div></div>
+      <div class="m"><div class="v">0</div><div class="k">profissionais visíveis na Clínica da Cidade antes do WhatsApp</div></div>
+    </div>
+  </section>
+
+  <!-- 4 · CC HOME -->
+  <section class="slide">
+    <p class="eyebrow"><span class="dot cc"></span> Clínica da Cidade · Home</p>
+    <h2>A primeira pergunta é “onde”, não “o quê”</h2>
+    <div class="grid-split">
+      <figure>
+        <div class="shot frame-cc" data-full="img/cc_home_full.png">
+          <span class="tag cc">Cliente</span>
+          <img src="img/cc_home_top.png" alt="Home da Clínica da Cidade" loading="lazy" />
+        </div>
+        <figcaption>Tela inicial real de <b>clinicadacidade.com.br</b></figcaption>
+      </figure>
+      <div class="stack">
+        <ul class="clean">
+          <li class="bad">O bloco principal é <b>“Encontre a Clínica da Cidade mais próxima”</b> — busca por estado e cidade.</li>
+          <li class="bad">O menu é orientado a instituição: <b>Quem Somos, Centros Médicos, Check-ups, Exames…</b></li>
+          <li class="bad">Nenhum profissional, preço de consulta ou horário aparece nesta etapa.</li>
+          <li>O usuário precisa <b>saber qual unidade</b> quer antes de qualquer coisa — uma decisão que ele raramente tem no início.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · CC CENTROS -->
+  <section class="slide">
+    <p class="eyebrow"><span class="dot cc"></span> Clínica da Cidade · Centros Médicos</p>
+    <h2>A navegação principal é um catálogo de endereços</h2>
+    <div class="grid-split">
+      <figure>
+        <div class="shot frame-cc" data-full="img/cc_centros_full.png">
+          <span class="tag cc">Cliente</span>
+          <img src="img/cc_centros_top.png" alt="Lista de centros médicos" loading="lazy" />
+        </div>
+        <figcaption>Página <b>Centros Médicos</b> — unidades listadas por cidade/endereço</figcaption>
+      </figure>
+      <div class="stack">
+        <ul class="clean">
+          <li class="bad">A oferta é apresentada como <b>fachadas e endereços</b>, não como soluções de saúde.</li>
+          <li class="bad">Para o paciente, a pergunta real (“qual médico resolve meu problema?”) continua <b>sem resposta</b>.</li>
+          <li>É uma estrutura de <b>franquia / institucional</b>, não de marketplace de agendamento.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · CC UNIDADE -->
+  <section class="slide">
+    <p class="eyebrow"><span class="dot cc"></span> Clínica da Cidade · Página da Unidade</p>
+    <h2>Chegou na unidade… e o caminho é o WhatsApp</h2>
+    <div class="grid-split">
+      <figure>
+        <div class="shot frame-cc" data-full="img/cc_unidade_full.png">
+          <span class="tag cc">Cliente</span>
+          <img src="img/cc_unidade_top.png" alt="Página da unidade Campinas" loading="lazy" />
+        </div>
+        <figcaption>Unidade <b>Campinas / Abolição</b> — repare no botão verde de <b>WhatsApp</b> flutuante</figcaption>
+      </figure>
+      <div class="stack">
+        <ul class="clean">
+          <li class="bad">A página é <b>institucional</b>: foto da recepção, galeria, vídeo e “como chegar”.</li>
+          <li class="bad">Os serviços são genéricos (“Consultas Médicas”, “Exames”) — <b>sem profissionais, sem preços, sem agenda</b>.</li>
+          <li class="bad">A principal ação de conversão é o <b>WhatsApp</b>: a decisão sai do site e vira uma conversa humana.</li>
+          <li>O atendente é quem, manualmente, descobre a especialidade e o profissional certo para o paciente.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · CC AGENDAMENTO -->
+  <section class="slide">
+    <p class="eyebrow"><span class="dot cc"></span> Clínica da Cidade · Agendamento</p>
+    <h2>Quando existe agenda, ela é limitada e impessoal</h2>
+    <div class="grid-split">
+      <figure>
+        <div class="shot frame-cc" data-full="img/cc_agendamento_full.png">
+          <span class="tag cc">Cliente</span>
+          <img src="img/cc_agendamento_top.png" alt="Página de agendamento" loading="lazy" />
+        </div>
+        <figcaption>Fluxo de <b>agendamento online</b> da Clínica da Cidade</figcaption>
+      </figure>
+      <div class="stack">
+        <ul class="clean">
+          <li class="bad">A escolha começa por <b>“qual exame/consulta”</b> — e não por um profissional.</li>
+          <li class="bad">A tela é dominada por <b>avisos e restrições</b>, gerando insegurança antes da ação.</li>
+          <li class="good">Curiosidade estratégica: o sistema é <b>“powered by TuoTempo by Doctoralia”</b> — a tecnologia de agenda já existe, mas é subaproveitada.</li>
+          <li>Não há foto, avaliação ou reputação do profissional para gerar confiança.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 · DR HOME -->
+  <section class="slide">
+    <p class="eyebrow"><span class="dot dr"></span> Doctoralia · Home</p>
+    <h2>A primeira pergunta é “o que você precisa?”</h2>
+    <div class="grid-split">
+      <figure>
+        <div class="shot frame-dr" data-full="img/dr_home_full.png">
+          <span class="tag dr">Concorrente</span>
+          <img src="img/dr_home_top.png" alt="Home da Doctoralia" loading="lazy" />
+        </div>
+        <figcaption>Tela inicial real de <b>doctoralia.com.br</b></figcaption>
+      </figure>
+      <div class="stack">
+        <ul class="clean">
+          <li class="good">Headline direta: <b>“Agende agora sua consulta”</b> com busca por <b>especialidade, doença ou nome</b>.</li>
+          <li class="good">Logo abaixo, atalhos para as especialidades mais buscadas (Ginecologista, Psicólogo, Dermatologista…).</li>
+          <li class="good">A localização é apenas um <b>filtro secundário</b> (“cidade ou região”), não a porta de entrada.</li>
+          <li>A navegação acompanha <b>a intenção do paciente</b>, não a estrutura interna da empresa.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9 · DR RESULTADOS -->
+  <section class="slide">
+    <p class="eyebrow"><span class="dot dr"></span> Doctoralia · Resultados</p>
+    <h2>Profissional, reputação e agenda na mesma tela</h2>
+    <div class="grid-split">
+      <figure>
+        <div class="shot frame-dr" data-full="img/dr_results_full.png">
+          <span class="tag dr">Concorrente</span>
+          <img src="img/dr_results_top.png" alt="Resultados de busca da Doctoralia" loading="lazy" />
+        </div>
+        <figcaption>Busca por <b>“Ginecologista · São Paulo”</b> — resultados reais</figcaption>
+      </figure>
+      <div class="stack">
+        <ul class="clean">
+          <li class="good"><b>Foto, nome, avaliações e CRM</b> do profissional já no resultado.</li>
+          <li class="good">A <b>agenda com horários disponíveis</b> aparece direto no card — o usuário clica e agenda.</li>
+          <li class="good">Filtros por convênio, teleconsulta, bairro e datas dão <b>controle total</b> ao paciente.</li>
+          <li>Tudo o que a Clínica da Cidade resolve “no WhatsApp” aqui está <b>visível e clicável</b>.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 · DR PERFIL -->
+  <section class="slide">
+    <p class="eyebrow"><span class="dot dr"></span> Doctoralia · Perfil + Agendamento</p>
+    <h2>Da escolha à confirmação, sem sair da página</h2>
+    <div class="grid-split">
+      <figure>
+        <div class="shot frame-dr" data-full="img/dr_perfil_full.png">
+          <span class="tag dr">Concorrente</span>
+          <img src="img/dr_perfil_top.png" alt="Perfil do profissional na Doctoralia" loading="lazy" />
+        </div>
+        <figcaption>Perfil do profissional com o painel <b>“Agendar atendimento”</b></figcaption>
+      </figure>
+      <div class="stack">
+        <ul class="clean">
+          <li class="good">Painel de agendamento <b>fixo ao lado</b>: endereço, serviço, preço, convênio e horários.</li>
+          <li class="good">Prova social forte: <b>480 opiniões</b>, certificado de excelência, “pacientes fiéis”.</li>
+          <li class="good">A conversão é <b>self-service e imediata</b> — sem fila de WhatsApp.</li>
+          <li>O paciente sente que <b>decidiu</b>, em vez de “pedir informação”.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 · LADO A LADO HOME -->
+  <section class="slide">
+    <p class="eyebrow">Comparativo direto · primeira impressão</p>
+    <h2>Mesma indústria, propostas opostas</h2>
+    <div class="grid2" style="flex:1;min-height:0">
+      <figure>
+        <div class="shot frame-cc" data-full="img/cc_home_full.png">
+          <span class="tag cc">Cliente</span>
+          <img src="img/cc_home_top.png" alt="Home Clínica da Cidade" loading="lazy" />
+        </div>
+        <figcaption><b>Busca por UNIDADE</b> → leva à clínica → WhatsApp</figcaption>
+      </figure>
+      <figure>
+        <div class="shot frame-dr" data-full="img/dr_home_full.png">
+          <span class="tag dr">Concorrente</span>
+          <img src="img/dr_home_top.png" alt="Home Doctoralia" loading="lazy" />
+        </div>
+        <figcaption><b>Busca por SERVIÇO</b> → leva ao profissional → agenda</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 12 · LADO A LADO AGENDAMENTO -->
+  <section class="slide">
+    <p class="eyebrow">Comparativo direto · o momento da conversão</p>
+    <h2>“Fale com um atendente” vs “Escolha seu horário”</h2>
+    <div class="grid2" style="flex:1;min-height:0">
+      <figure>
+        <div class="shot frame-cc" data-full="img/cc_unidade_full.png">
+          <span class="tag cc">Cliente</span>
+          <img src="img/cc_unidade_top.png" alt="Unidade Clínica da Cidade" loading="lazy" />
+        </div>
+        <figcaption>Conversão depende de <b>resposta humana no WhatsApp</b></figcaption>
+      </figure>
+      <figure>
+        <div class="shot frame-dr" data-full="img/dr_results_full.png">
+          <span class="tag dr">Concorrente</span>
+          <img src="img/dr_results_top.png" alt="Resultados Doctoralia" loading="lazy" />
+        </div>
+        <figcaption>Conversão acontece <b>sozinha, com horários clicáveis</b></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 13 · IMPACTO -->
+  <section class="slide">
+    <p class="eyebrow">O impacto em conversão</p>
+    <h2>Onde a Clínica da Cidade perde paciente</h2>
+    <div class="grid2">
+      <div class="cards">
+        <div class="card cc">
+          <h3>🕒 Dependência de horário comercial</h3>
+          <p>Quem entra à noite ou no fim de semana — quando as pessoas realmente pesquisam saúde — não consegue agendar e muitas vezes não volta.</p>
+        </div>
+        <div class="card cc">
+          <h3>📲 Fuga para fora do site</h3>
+          <p>O WhatsApp tira o usuário do ambiente controlado, quebra a mensuração do funil e adiciona espera.</p>
+        </div>
+        <div class="card cc">
+          <h3>🙈 Falta de confiança</h3>
+          <p>Sem foto, avaliação ou preço do profissional, o paciente não tem como decidir com segurança — então adia.</p>
+        </div>
+      </div>
+      <div class="stack">
+        <p class="lead">A fricção é cumulativa: <b style="color:var(--ink)">cada etapa extra derruba a taxa de conversão.</b></p>
+        <div class="metric" style="margin-top:.5rem">
+          <div class="m"><div class="v warn">+1</div><div class="k">canal externo (WhatsApp) no meio do funil</div></div>
+          <div class="m"><div class="v warn">⏳</div><div class="k">tempo de espera por atendente humano</div></div>
+          <div class="m"><div class="v warn">0</div><div class="k">prova social do profissional antes do contato</div></div>
+        </div>
+        <p>A Doctoralia transformou cada um desses pontos de atrito em <b style="color:var(--ink)">uma ação imediata na própria tela</b> — e é exatamente aí que ganha a conversão.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 14 · RECOMENDAÇÕES -->
+  <section class="slide">
+    <p class="eyebrow">Recomendações de CRO</p>
+    <h2>Como a Clínica da Cidade fecha o gap</h2>
+    <div class="rec">
+      <div class="card dr"><div class="num">01</div><h3>Navegar por serviço</h3><p>Colocar a busca por <b>especialidade/sintoma</b> como herói da home, com a unidade virando filtro — não porta de entrada.</p></div>
+      <div class="card dr"><div class="num">02</div><h3>Mostrar profissionais</h3><p>Exibir <b>médicos com foto, especialidade, avaliações e preço</b> antes de qualquer contato.</p></div>
+      <div class="card dr"><div class="num">03</div><h3>Agenda na própria tela</h3><p>Ativar de verdade o agendamento online (a base TuoTempo/Doctoralia já existe) com <b>horários clicáveis</b>.</p></div>
+      <div class="card dr"><div class="num">04</div><h3>WhatsApp como apoio</h3><p>Manter o WhatsApp como <b>plano B</b>, não como o único caminho de conversão.</p></div>
+      <div class="card dr"><div class="num">05</div><h3>Prova social</h3><p>Trazer avaliações e selos para o card do profissional, reduzindo a insegurança na decisão.</p></div>
+      <div class="card dr"><div class="num">06</div><h3>Conversão 24/7</h3><p>Garantir que o paciente consiga <b>marcar sozinho a qualquer hora</b>, sem depender de atendente.</p></div>
+    </div>
+  </section>
+
+  <!-- 15 · FECHO -->
+  <section class="slide cover center">
+    <p class="eyebrow">Resumo</p>
+    <h1 style="max-width:18ch">De “mande mensagem” para<br>“agende em 1 clique”.</h1>
+    <p class="lead" style="margin:0 auto">A maior alavanca de conversão da Clínica da Cidade não é tráfego — é
+       <b style="color:var(--ink)">reorganizar a jornada em torno do serviço e do profissional</b>,
+       trazendo o agendamento para dentro do site, como faz a Doctoralia.</p>
+    <div class="vs" style="justify-content:center">
+      <span class="pill"><span class="dot cc"></span> Hoje: unidade → WhatsApp → atendente</span>
+      <span class="pill"><span class="dot dr"></span> Meta: serviço → profissional → agenda</span>
+    </div>
+    <p class="meta" style="margin-top:2.4rem">Obrigado. · Capturas reais coletadas em 15/06/2026.</p>
+  </section>
+
+</div>
+
+<!-- chrome -->
+<div class="counter"><b id="cur">01</b> / <span id="total">15</span></div>
+<div class="hint">Use ← → ou a barra de espaço para navegar · clique nas telas para ampliar</div>
+<div class="nav">
+  <button id="prev" aria-label="Anterior">‹</button>
+  <button id="next" aria-label="Próximo">›</button>
+</div>
+
+<div class="lb" id="lb"><img id="lbimg" src="" alt="" /></div>
+
+<script>
+  const slides=[...document.querySelectorAll('.slide')];
+  let i=0;
+  const progress=document.getElementById('progress');
+  const cur=document.getElementById('cur');
+  document.getElementById('total').textContent=String(slides.length).padStart(2,'0');
+
+  function show(n){
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach((s,k)=>s.classList.toggle('active',k===i));
+    progress.style.width=((i+1)/slides.length*100)+'%';
+    cur.textContent=String(i+1).padStart(2,'0');
+    const act=slides[i]; if(act) act.scrollTop=0;
+  }
+  document.getElementById('next').onclick=()=>show(i+1);
+  document.getElementById('prev').onclick=()=>show(i-1);
+  document.addEventListener('keydown',e=>{
+    if(lb.classList.contains('open')){ if(e.key==='Escape') closeLb(); return; }
+    if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();show(i+1);}
+    else if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();show(i-1);}
+    else if(e.key==='Home'){show(0);} else if(e.key==='End'){show(slides.length-1);}
+  });
+
+  // lightbox
+  const lb=document.getElementById('lb'), lbimg=document.getElementById('lbimg');
+  function openLb(src){lbimg.src=src;lb.classList.add('open');}
+  function closeLb(){lb.classList.remove('open');lbimg.src='';}
+  document.querySelectorAll('.shot').forEach(el=>{
+    el.addEventListener('click',()=>openLb(el.dataset.full||el.querySelector('img').src));
+  });
+  lb.addEventListener('click',closeLb);
+
+  show(0);
+</script>
+</body>
+</html>
