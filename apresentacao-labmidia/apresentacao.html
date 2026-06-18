@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LabMídia × Clínica da Cidade · Apresentação para a Rede de Franqueados</title>
+<style>
+  :root{
+    --navy:#0a2d3a;--navy2:#0e3a4a;--teal:#0e9ba1;--teal-d:#0a7e83;--teal-l:#1ec4c9;
+    --bg:#eef4f5;--panel:#ffffff;--ink:#10333d;--muted:#5b757d;--line:#dde9eb;
+    --accent:#f59e0b;--accent-d:#d97706;--good:#16a34a;--good-l:#22c55e;--bad:#e2576f;
+    --shadow:0 18px 50px rgba(8,40,50,.16);--shadow-sm:0 4px 16px rgba(8,40,50,.08);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:#06212b;color:var(--ink);-webkit-font-smoothing:antialiased;overflow:hidden}
+  .deck{position:relative;width:100vw;height:100vh;overflow:hidden}
+
+  .slide{
+    position:absolute;inset:0;display:none;flex-direction:column;
+    padding:4.2vh 5vw 8vh;overflow-y:auto;
+    background:var(--bg);animation:fade .45s ease}
+  .slide.active{display:flex}
+  @keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+  .slide.dark{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 60%,#0c4350 100%);color:#eaf6f7}
+  .slide.teal{background:linear-gradient(135deg,var(--teal-d),var(--teal));color:#fff}
+
+  /* eyebrow + titles */
+  .eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-size:.8rem;font-weight:800;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--teal-d);margin-bottom:1rem}
+  .slide.dark .eyebrow,.slide.teal .eyebrow{color:var(--accent)}
+  .eyebrow::before{content:"";width:26px;height:2px;background:currentColor;display:inline-block}
+  h1.title{font-size:clamp(1.9rem,4vw,3.2rem);line-height:1.05;letter-spacing:-.02em;font-weight:800}
+  h2.title{font-size:clamp(1.5rem,3vw,2.4rem);line-height:1.1;letter-spacing:-.02em;font-weight:800;margin-bottom:.4rem}
+  .lead{font-size:clamp(1rem,1.5vw,1.22rem);color:var(--muted);max-width:60ch;line-height:1.55;margin-top:.6rem}
+  .slide.dark .lead,.slide.teal .lead{color:rgba(255,255,255,.82)}
+  .hl{color:var(--teal-d);font-weight:800}
+  .slide.dark .hl,.slide.teal .hl{color:var(--accent)}
+
+  /* cards / grids */
+  .grid{display:grid;gap:1.1rem;margin-top:1.6rem}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g4{grid-template-columns:repeat(4,1fr)}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:1.4rem 1.5rem;box-shadow:var(--shadow-sm)}
+  .card.soft{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.14);box-shadow:none;color:#eaf6f7}
+  .card h3{font-size:1.08rem;margin-bottom:.4rem;display:flex;align-items:center;gap:.55rem}
+  .card p{color:var(--muted);font-size:.96rem;line-height:1.5}
+  .card.soft p{color:rgba(255,255,255,.78)}
+  .ic{width:42px;height:42px;border-radius:11px;display:grid;place-items:center;flex:none;
+    background:var(--teal-050,#e8f6f6);color:var(--teal-d);background:#e6f6f6}
+  .ic.amber{background:#fef0d6;color:var(--accent-d)}
+  .ic.green{background:#e3f7e9;color:var(--good)}
+  .ic.soft{background:rgba(255,255,255,.12);color:#fff}
+
+  /* stat numbers */
+  .stat{font-size:clamp(1.8rem,3.4vw,2.8rem);font-weight:800;letter-spacing:-.02em;line-height:1}
+  .stat.teal{color:var(--teal-d)} .stat.amber{color:var(--accent-d)} .stat.green{color:var(--good)}
+  .stat.white{color:#fff}
+  .statlbl{font-size:.82rem;color:var(--muted);margin-top:.45rem;font-weight:600;line-height:1.35}
+  .card.soft .statlbl{color:rgba(255,255,255,.72)}
+
+  ul.clean{list-style:none;margin-top:.8rem;display:flex;flex-direction:column;gap:.55rem}
+  ul.clean li{position:relative;padding-left:1.9rem;font-size:1rem;line-height:1.5;color:var(--ink)}
+  .slide.dark ul.clean li{color:#dcebed;color:rgba(255,255,255,.9)}
+  ul.clean li::before{content:"";position:absolute;left:0;top:.45em;width:12px;height:12px;border-radius:4px;
+    background:var(--teal);box-shadow:0 0 0 4px rgba(14,155,161,.16)}
+  ul.clean li.good::before{background:var(--good)}
+  ul.clean li.amber::before{background:var(--accent)}
+
+  /* bar chart */
+  .bars{display:flex;flex-direction:column;gap:.62rem;margin-top:1.2rem}
+  .bar-row{display:grid;grid-template-columns:190px 1fr 88px;align-items:center;gap:.9rem}
+  .bar-row .nm{font-size:.92rem;font-weight:600;text-align:right;color:var(--ink)}
+  .bar-track{background:#dde9eb;border-radius:8px;height:22px;overflow:hidden}
+  .slide.dark .bar-track{background:rgba(255,255,255,.12)}
+  .bar-fill{height:100%;border-radius:8px;background:linear-gradient(90deg,var(--teal),var(--teal-l));
+    display:flex;align-items:center;justify-content:flex-end;transition:width .8s ease}
+  .bar-fill.amber{background:linear-gradient(90deg,var(--accent-d),var(--accent))}
+  .bar-row .vl{font-size:.9rem;font-weight:800;color:var(--teal-d)}
+  .slide.dark .bar-row .nm{color:rgba(255,255,255,.9)}
+  .slide.dark .bar-row .vl{color:var(--accent)}
+
+  /* comparison table */
+  table.cmp{width:100%;border-collapse:collapse;margin-top:1.3rem;font-size:.96rem;background:var(--panel);border-radius:14px;overflow:hidden;box-shadow:var(--shadow-sm)}
+  table.cmp th{padding:.85rem 1.1rem;text-align:left;font-size:.82rem;text-transform:uppercase;letter-spacing:.05em}
+  table.cmp th.lab{background:var(--teal);color:#fff}
+  table.cmp th.trad{background:#eef2f3;color:var(--muted)}
+  table.cmp td{padding:.7rem 1.1rem;border-top:1px solid var(--line);vertical-align:top;line-height:1.4}
+  table.cmp td.lab{color:var(--ink);font-weight:600}
+  table.cmp td.trad{color:var(--muted)}
+  table.cmp tr td.lab::before{content:"✓ ";color:var(--good);font-weight:800}
+  table.cmp tr td.trad::before{content:"✕ ";color:var(--bad);font-weight:800}
+
+  /* case cards */
+  .case{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:1.2rem 1.3rem;box-shadow:var(--shadow-sm);position:relative;overflow:hidden}
+  .case .niche{font-size:.78rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+  .case .kw{font-size:.92rem;color:var(--ink);margin:.3rem 0 .8rem;font-weight:600}
+  .case .jump{display:flex;align-items:baseline;gap:.5rem}
+  .case .from{color:var(--muted);font-size:1rem;text-decoration:line-through}
+  .case .to{color:var(--good);font-size:1.9rem;font-weight:800;letter-spacing:-.02em}
+  .case .arrow{color:var(--good)}
+  .case .pos{margin-top:.5rem;font-size:.86rem;color:var(--muted)}
+  .case .pos b{color:var(--teal-d)}
+
+  /* journey */
+  .journey{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem;margin-top:1.6rem}
+  .jstep{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:1.4rem;position:relative;box-shadow:var(--shadow-sm)}
+  .jstep .mo{font-size:.8rem;font-weight:800;color:var(--accent-d);letter-spacing:.05em}
+  .jstep .h{font-size:1.15rem;font-weight:800;margin:.3rem 0 .6rem}
+
+  /* team */
+  .person{display:flex;gap:1.1rem;align-items:flex-start}
+  .avatar{width:74px;height:74px;border-radius:16px;flex:none;display:grid;place-items:center;font-size:1.6rem;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--teal),var(--teal-d))}
+  .avatar.b{background:linear-gradient(135deg,var(--accent),var(--accent-d))}
+  .person .photo{width:120px;height:152px;border-radius:14px;object-fit:cover;object-position:center top;flex:none;box-shadow:var(--shadow-sm);background:#0c3a4a}
+  .teamband{display:flex;gap:1.4rem;align-items:center;margin-top:1.1rem}
+  .teamband img{width:248px;height:168px;object-fit:cover;object-position:center 32%;border-radius:14px;flex:none;box-shadow:var(--shadow-sm)}
+  .teamband h3{font-size:1.15rem;margin-bottom:.35rem}
+  .teamband p{color:var(--muted);font-size:.96rem;line-height:1.5}
+  @media (max-width:760px){ .teamband{flex-direction:column;align-items:flex-start} .teamband img{width:100%;height:200px} .person .photo{width:90px;height:116px} }
+  .person h3{font-size:1.2rem}
+  .person .role{color:var(--teal-d);font-weight:700;font-size:.88rem;margin-bottom:.4rem}
+  .slide.dark .person .role{color:var(--accent)}
+
+  .pill{display:inline-flex;align-items:center;gap:.4rem;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);
+    color:#fff;border-radius:999px;padding:.4rem .9rem;font-size:.85rem;font-weight:600}
+  .pillrow{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.2rem}
+
+  .spacer{flex:1}
+  .footnote{font-size:.78rem;color:var(--muted);margin-top:1.2rem}
+  .slide.dark .footnote{color:rgba(255,255,255,.5)}
+
+  /* cover */
+  .cover-mark{display:flex;align-items:center;gap:1rem;margin-bottom:auto}
+  .lab-logo{font-weight:800;font-size:1.5rem;letter-spacing:-.02em;color:#fff;display:flex;align-items:center;gap:.5rem}
+  .lab-logo .dot{width:12px;height:12px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(245,158,11,.25)}
+  .cc-mark svg{height:30px}
+  .x-sep{color:rgba(255,255,255,.4);font-size:1.4rem;font-weight:300}
+  .cover-big{font-size:clamp(2.2rem,5.5vw,4.6rem);font-weight:800;letter-spacing:-.03em;line-height:1.02;margin-top:auto}
+  .cover-sub{font-size:clamp(1.05rem,1.8vw,1.4rem);color:rgba(255,255,255,.82);max-width:54ch;margin-top:1.3rem;line-height:1.5}
+
+  /* nav */
+  .nav{position:fixed;bottom:0;left:0;right:0;height:6vh;min-height:46px;background:rgba(8,33,43,.92);
+    display:flex;align-items:center;gap:1rem;padding:0 1.4rem;z-index:30;backdrop-filter:blur(6px)}
+  .nav button{background:rgba(255,255,255,.1);color:#fff;border:none;width:34px;height:34px;border-radius:9px;
+    cursor:pointer;font-size:1.1rem;transition:.15s;display:grid;place-items:center}
+  .nav button:hover{background:var(--teal)}
+  .nav .count{color:#fff;font-size:.85rem;font-weight:700;font-variant-numeric:tabular-nums}
+  .nav .count span{color:rgba(255,255,255,.5)}
+  .nav .title-mini{color:rgba(255,255,255,.6);font-size:.82rem;margin-left:.4rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .progress{position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,var(--teal),var(--accent));z-index:40;transition:width .4s ease}
+  .dots{display:flex;gap:.32rem;margin-left:auto;flex-wrap:nowrap;overflow:hidden}
+  .dots i{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.22);cursor:pointer;transition:.15s}
+  .dots i.on{background:var(--accent);transform:scale(1.25)}
+
+  .tag{display:inline-block;background:var(--accent);color:#3a2600;font-weight:800;font-size:.72rem;
+    padding:.25rem .7rem;border-radius:999px;letter-spacing:.04em;text-transform:uppercase}
+  .badge-row{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1rem}
+  .badge{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:.5rem .85rem;font-size:.85rem;font-weight:700;color:var(--ink);box-shadow:var(--shadow-sm)}
+
+  @media (max-width:760px){
+    .g2,.g3,.g4,.journey{grid-template-columns:1fr}
+    .bar-row{grid-template-columns:110px 1fr 60px;gap:.5rem}
+    .bar-row .nm{font-size:.78rem}
+    .slide{padding:3vh 6vw 9vh}
+    .dots{display:none}
+  }
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="deck" id="deck">
+
+  <!-- 1. CAPA -->
+  <section class="slide dark active" data-title="Capa">
+    <div class="cover-mark">
+      <div class="lab-logo"><span class="dot"></span>LabMídia</div>
+      <span class="x-sep">×</span>
+      <span class="cc-mark" aria-label="Clínica da Cidade">
+        <svg viewBox="0 0 221 50" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="height:32px">
+          <path d="M33.1752 12.1026H30.1004V9.01411C30.1004 4.04385 26.0743 0 21.1259 0H21.0224C16.074 0 12.048 4.04385 12.048 9.01411V12.1026H8.97311C4.34572 12.1026 0.525364 15.6398 0.0497851 20.164C0.0170318 20.4772 0 20.7943 0 21.1154V21.218C0 21.5036 0.0144115 21.7852 0.0406142 22.0642H1.94817L17.0344 22.0668L19.8381 17.7571L24.5768 26.3001L28.5662 19.8758L29.972 22.1194H40.1949C39.7534 25.6159 36.7742 28.3293 33.1752 28.3293H29.1531C28.6291 28.3293 28.2046 28.7557 28.2046 29.2807V33.3219C28.2046 37.2421 25.0288 40.4319 21.1259 40.4319H21.0224C17.1195 40.4319 13.9438 37.2421 13.9438 33.3219V29.3268C13.9438 28.6793 13.4551 28.3306 12.9952 28.3306H8.97311C6.51268 28.3306 4.34572 27.0634 3.0762 25.1448H0.898753C2.353 28.1543 5.42527 30.2348 8.97443 30.2348H12.0493V33.3232C12.0493 38.2935 16.0754 42.3374 21.0237 42.3374H21.1272C26.0756 42.3374 30.1017 38.2935 30.1017 33.3232V30.2348H33.1766C37.8223 30.2348 41.6544 26.6699 42.1051 22.1221C42.1353 21.826 42.1497 21.526 42.1497 21.222V21.1193C42.1497 20.8154 42.1339 20.5153 42.1051 20.2192H40.1963H31.0201L28.5609 16.2938L24.6698 22.559L19.9678 14.0831L16.0085 20.1679H1.96127C2.42637 16.6965 5.39252 14.0107 8.97443 14.0107H12.9965C13.4564 14.0107 13.9438 13.6606 13.9438 13.0132V9.01805C13.9438 5.09791 17.1195 1.9081 21.0224 1.9081H21.1259C25.0288 1.9081 28.2046 5.09659 28.2046 9.01805V13.058C28.2046 13.5843 28.6291 14.0107 29.1531 14.0107H33.1752C35.5767 14.0107 37.7018 15.2187 38.9818 17.0623H41.1841C39.7036 14.1252 36.6707 12.1065 33.1752 12.1065" fill="#fff"/>
+          <path d="M53.1523 17.8073C53.1523 16.086 53.6987 14.6898 54.7913 13.641C55.884 12.5936 57.2504 12.0698 58.913 12.0698C60.5756 12.0698 61.9434 12.5686 63.0111 13.566C64.0789 14.5635 64.6252 15.9097 64.6252 17.5822V17.7323C64.6252 18.256 64.2269 18.531 63.433 18.531C62.639 18.531 62.2408 18.2573 62.2408 17.7323V17.6323C62.2159 16.5098 61.9185 15.6373 61.3223 15.0136C60.7262 14.3898 59.9323 14.0911 58.913 14.0911C57.8937 14.0911 57.1247 14.4148 56.505 15.0886C55.884 15.7623 55.5866 16.6598 55.5866 17.8073V24.3422C55.5866 25.4897 55.9089 26.3871 56.5299 27.0609C57.1509 27.7346 57.9697 28.0584 58.9641 28.0584C59.9585 28.0584 60.8009 27.7596 61.397 27.1359C61.9931 26.5121 62.3154 25.6397 62.3403 24.5172V24.4172C62.3403 23.8934 62.7373 23.6184 63.5325 23.6184C64.3278 23.6184 64.7248 23.8921 64.7248 24.4172V24.5672C64.7248 26.2384 64.1784 27.5859 63.1107 28.5834C62.0429 29.5822 60.6778 30.0796 59.0139 30.0796C57.35 30.0796 55.9835 29.5559 54.8909 28.5084C53.7982 27.4609 53.2519 26.0634 53.2519 24.3422L53.1523 17.8073Z" fill="#fff"/>
+          <path d="M72.2471 28.0581C72.5943 28.2331 72.7685 28.4819 72.7685 28.8069C72.7685 29.1806 72.6689 29.4806 72.4449 29.7044C72.2209 29.9294 71.9732 30.0281 71.6758 30.0281C71.5016 30.0281 71.3287 30.0031 71.1793 29.9281C68.9691 28.9056 67.8516 27.0343 67.8516 24.3156V12.1933C67.8516 11.6696 68.2249 11.3945 68.9691 11.3945C69.7133 11.3945 70.0867 11.6682 70.0867 12.1933V24.1656C70.0867 26.0606 70.8072 27.3581 72.2471 28.0318V28.0568V28.0581Z" fill="#fff"/>
+          <path d="M75.0044 17.5822C75.0044 17.0585 75.3765 16.7848 76.1219 16.7848C76.8674 16.7848 77.2395 17.0585 77.2395 17.5822V29.2308C77.2395 29.7546 76.8661 30.0033 76.1219 30.0033C75.3778 30.0033 75.0044 29.7533 75.0044 29.2308V17.5822ZM77.6365 11.4724C77.7609 11.3474 77.8854 11.2974 78.0347 11.2974C78.2575 11.2974 78.4566 11.3974 78.6557 11.6224C78.8536 11.8474 78.9531 12.0461 78.9531 12.2211C78.9531 12.3962 78.9033 12.5462 78.7789 12.6699L76.2962 15.1636C76.1717 15.2873 76.0486 15.3386 75.8992 15.3386C75.6765 15.3386 75.4773 15.2386 75.2782 15.0135C75.0791 14.7885 74.9795 14.5898 74.9795 14.4148C74.9795 14.2398 75.0293 14.0911 75.1537 13.9661L77.6378 11.4724H77.6365Z" fill="#fff"/>
+          <path d="M84.9114 16.6595C86.177 16.6595 87.2709 17.0582 88.1644 17.832C89.058 18.6058 89.506 19.6783 89.506 21.0495V29.1806C89.506 29.7043 89.1339 29.9543 88.3885 29.9543C87.643 29.9543 87.2709 29.7043 87.2709 29.1806V21.1245C87.2709 20.3257 87.0469 19.7033 86.6015 19.2532C86.1547 18.8045 85.6071 18.5795 84.9376 18.5795C84.2681 18.5795 83.7218 18.8045 83.2737 19.2532C82.827 19.7019 82.6042 20.3257 82.6042 21.1482V29.2043C82.6042 29.728 82.2321 29.978 81.4867 29.978C80.7412 29.978 80.3691 29.728 80.3691 29.2043V21.0731C80.3691 19.7006 80.8159 18.6281 81.7094 17.8557C82.6029 17.0832 83.6969 16.6832 84.9625 16.6832L84.9127 16.6582L84.9114 16.6595Z" fill="#fff"/>
+          <path d="M92.6844 17.5822C92.6844 17.0584 93.0565 16.7847 93.8019 16.7847C94.5474 16.7847 94.9195 17.0584 94.9195 17.5822V29.2308C94.9195 29.7545 94.5474 30.0032 93.8019 30.0032C93.0565 30.0032 92.6844 29.7532 92.6844 29.2308V17.5822ZM94.9431 13.5173C94.9431 14.3661 94.571 14.7898 93.8006 14.7898C93.0303 14.7898 92.6582 14.3661 92.6582 13.5173V13.0685C92.6582 12.2198 93.0303 11.7974 93.8006 11.7974C94.571 11.7974 94.9431 12.2211 94.9431 13.0685V13.5173Z" fill="#fff"/>
+          <path d="M97.7744 21.1997C97.7744 19.8022 98.2212 18.706 99.116 17.9323C100.01 17.1598 101.102 16.7598 102.369 16.7598C103.636 16.7598 104.754 17.1598 105.622 17.9573C106.492 18.7547 106.939 19.7285 106.939 20.901V21.0497C106.939 21.5497 106.567 21.7985 105.821 21.7985C105.076 21.7985 104.704 21.5497 104.704 21.0247V20.9247C104.704 20.3009 104.48 19.7772 104.058 19.3285C103.636 18.8797 103.065 18.6547 102.369 18.6547C101.673 18.6547 101.152 18.8784 100.705 19.3285C100.258 19.7772 100.036 20.4009 100.036 21.2234V25.6383C100.036 26.4358 100.26 27.0595 100.705 27.5083C101.152 27.957 101.724 28.182 102.394 28.182C103.063 28.182 103.661 27.957 104.083 27.5083C104.505 27.0595 104.729 26.5358 104.729 25.912V25.812C104.729 25.2883 105.101 25.0383 105.846 25.0383C106.592 25.0383 106.964 25.2883 106.964 25.7857V25.9357C106.964 27.1082 106.517 28.0807 105.648 28.8795C104.778 29.6782 103.686 30.077 102.395 30.077C101.105 30.077 100.061 29.6782 99.1671 28.9045C98.2736 28.1307 97.8268 27.0595 97.8268 25.687L97.777 21.1971L97.7744 21.1997Z" fill="#fff"/>
+          <path d="M114.063 28.2081C114.709 28.2081 115.255 28.008 115.677 27.6093C116.099 27.2106 116.323 26.6118 116.323 25.8381V23.5681C116.199 23.6931 115.951 23.8181 115.579 23.9168L113.071 24.5406C112.176 24.7893 111.73 25.3643 111.73 26.2618C111.73 26.7855 111.954 27.2343 112.376 27.608C112.799 27.9817 113.344 28.1817 114.015 28.1817L114.064 28.2067L114.063 28.2081ZM109.495 20.6507C109.495 19.5532 109.916 18.6307 110.76 17.857C111.605 17.0832 112.673 16.7095 113.965 16.7095C115.43 16.7095 116.547 17.1332 117.317 18.007C118.086 18.8794 118.485 20.0269 118.485 21.4494V25.6894C118.485 27.0606 118.063 28.133 117.218 28.9318C116.374 29.7306 115.306 30.1293 113.99 30.1293C112.673 30.1293 111.582 29.7556 110.737 28.9818C109.892 28.2094 109.47 27.2606 109.47 26.1381C109.47 24.3182 110.537 23.1707 112.673 22.6706L115.28 22.0469C115.951 21.8969 116.273 21.6732 116.273 21.3731V20.8994C116.273 20.2006 116.075 19.6519 115.652 19.2532C115.229 18.8531 114.684 18.6544 114.013 18.6544C113.342 18.6544 112.796 18.8531 112.374 19.2532C111.952 19.6519 111.753 20.1256 111.753 20.6994V20.8744C111.753 21.3481 111.381 21.5981 110.636 21.5981C109.89 21.5981 109.518 21.3244 109.518 20.7994L109.493 20.6494L109.495 20.6507Z" fill="#fff"/>
+          <path d="M133.657 21.1998C133.657 20.3774 133.432 19.7536 132.986 19.3036C132.539 18.8548 131.993 18.6311 131.322 18.6311C130.651 18.6311 130.105 18.8548 129.658 19.3036C129.211 19.7523 128.987 20.376 128.987 21.1998V25.6134C128.987 26.4372 129.21 27.061 129.633 27.5097C130.055 27.9584 130.626 28.1834 131.322 28.1834C132.018 28.1834 132.564 27.9584 133.011 27.5097C133.457 27.061 133.68 26.4372 133.68 25.6134L133.655 21.1998H133.657ZM135.867 25.7648C135.867 27.161 135.42 28.2334 134.526 29.0072C133.633 29.7797 132.565 30.1547 131.298 30.1547C130.031 30.1547 128.964 29.756 128.07 28.9822C127.177 28.2098 126.729 27.1123 126.729 25.7148V21.1511C126.729 19.7299 127.152 18.6324 127.995 17.8587C128.839 17.0849 129.834 16.6862 130.976 16.6862C132.118 16.6862 132.987 17.0349 133.658 17.7587V12.1962C133.658 11.6725 134.03 11.3975 134.775 11.3975C135.521 11.3975 135.893 11.6712 135.893 12.1962L135.868 25.7648H135.867Z" fill="#fff"/>
+          <path d="M143.266 28.2081C143.911 28.2081 144.458 28.008 144.88 27.6093C145.301 27.2106 145.526 26.6118 145.526 25.8381V23.5681C145.401 23.6931 145.153 23.8181 144.781 23.9168L142.274 24.5406C141.379 24.7893 140.932 25.3643 140.932 26.2618C140.932 26.7855 141.156 27.2343 141.578 27.608C142.001 27.9817 142.546 28.1817 143.217 28.1817L143.267 28.2067L143.266 28.2081ZM138.697 20.6507C138.697 19.5532 139.119 18.6307 139.963 17.857C140.808 17.0832 141.875 16.7095 143.166 16.7095C144.631 16.7095 145.748 17.1332 146.519 18.007C147.288 18.8794 147.686 20.0269 147.686 21.4494V25.6894C147.686 27.0606 147.264 28.133 146.419 28.9318C145.574 29.7306 144.508 30.1293 143.191 30.1293C141.874 30.1293 140.783 29.7556 139.938 28.9818C139.094 28.2094 138.671 27.2606 138.671 26.1381C138.671 24.3182 139.739 23.1707 141.874 22.6706L144.481 22.0469C145.152 21.8969 145.474 21.6732 145.474 21.3731V20.8994C145.474 20.2006 145.277 19.6519 144.853 19.2532C144.43 18.8531 143.885 18.6544 143.214 18.6544C142.544 18.6544 141.997 18.8531 141.575 19.2532C141.154 19.6519 140.954 20.1256 140.954 20.6994V20.8744C140.954 21.3481 140.582 21.5981 139.837 21.5981C139.091 21.5981 138.719 21.3244 138.719 20.7994L138.694 20.6494L138.697 20.6507Z" fill="#fff"/>
+          <path d="M156.203 17.8073C156.203 16.086 156.749 14.6898 157.842 13.641C158.935 12.5936 160.3 12.0698 161.964 12.0698C163.628 12.0698 164.994 12.5686 166.062 13.566C167.13 14.5635 167.676 15.9097 167.676 17.5822V17.7323C167.676 18.256 167.278 18.531 166.484 18.531C165.69 18.531 165.292 18.2573 165.292 17.7323V17.6323C165.267 16.5098 164.969 15.6373 164.373 15.0136C163.777 14.3898 162.982 14.0911 161.964 14.0911C160.946 14.0911 160.175 14.4148 159.556 15.0886C158.935 15.7623 158.637 16.6598 158.637 17.8073V24.3422C158.637 25.4897 158.96 26.3871 159.581 27.0609C160.202 27.7346 161.02 28.0584 162.015 28.0584C163.009 28.0584 163.853 27.7596 164.448 27.1359C165.044 26.5121 165.366 25.6397 165.392 24.5172V24.4172C165.392 23.8934 165.789 23.6184 166.585 23.6184C167.38 23.6184 167.777 23.8921 167.777 24.4172V24.5672C167.777 26.2384 167.231 27.5859 166.163 28.5834C165.095 29.5822 163.73 30.0796 162.066 30.0796C160.402 30.0796 159.037 29.5559 157.944 28.5084C156.852 27.4609 156.305 26.0634 156.305 24.3422L156.206 17.8073H156.203Z" fill="#fff"/>
+          <path d="M170.929 17.5822C170.929 17.0584 171.301 16.7847 172.046 16.7847C172.792 16.7847 173.164 17.0584 173.164 17.5822V29.2308C173.164 29.7545 172.792 30.0032 172.046 30.0032C171.301 30.0032 170.929 29.7532 170.929 29.2308V17.5822ZM173.187 13.5173C173.187 14.3661 172.815 14.7898 172.045 14.7898C171.274 14.7898 170.902 14.3661 170.902 13.5173V13.0685C170.902 12.2198 171.274 11.7974 172.045 11.7974C172.815 11.7974 173.187 12.2211 173.187 13.0685V13.5173Z" fill="#fff"/>
+          <path d="M182.946 21.1998C182.946 20.3774 182.722 19.7536 182.275 19.3036C181.829 18.8548 181.282 18.6311 180.612 18.6311C179.941 18.6311 179.396 18.8548 178.948 19.3036C178.501 19.7523 178.278 20.376 178.278 21.1998V25.6134C178.278 26.4372 178.501 27.061 178.923 27.5097C179.345 27.9584 179.916 28.1834 180.612 28.1834C181.307 28.1834 181.854 27.9584 182.3 27.5097C182.747 27.061 182.97 26.4372 182.97 25.6134L182.945 21.1998H182.946ZM185.156 25.7648C185.156 27.161 184.71 28.2334 183.816 29.0072C182.923 29.7797 181.855 30.1547 180.588 30.1547C179.321 30.1547 178.253 29.756 177.36 28.9822C176.465 28.2098 176.02 27.1123 176.02 25.7148V21.1511C176.02 19.7299 176.441 18.6324 177.285 17.8587C178.13 17.0849 179.123 16.6862 180.266 16.6862C181.408 16.6862 182.277 17.0349 182.948 17.7587V12.1962C182.948 11.6725 183.321 11.3975 184.065 11.3975C184.809 11.3975 185.183 11.6712 185.183 12.1962L185.158 25.7648H185.156Z" fill="#fff"/>
+          <path d="M192.556 28.2081C193.202 28.2081 193.748 28.008 194.17 27.6093C194.592 27.2106 194.816 26.6118 194.816 25.8381V23.5681C194.692 23.6931 194.444 23.8181 194.072 23.9168L191.564 24.5406C190.67 24.7893 190.223 25.3643 190.223 26.2618C190.223 26.7855 190.447 27.2343 190.869 27.608C191.292 27.9817 191.837 28.1817 192.508 28.1817L192.558 28.2067L192.556 28.2081ZM187.988 20.6507C187.988 19.5532 188.41 18.6307 189.253 17.857C190.098 17.0832 191.166 16.7095 192.458 16.7095C193.923 16.7095 195.04 17.1332 195.811 18.007C196.58 18.8794 196.978 20.0269 196.978 21.4494V25.6894C196.978 27.0606 196.556 28.133 195.711 28.9318C194.867 29.7306 193.8 30.1293 192.483 30.1293C191.166 30.1293 190.075 29.7556 189.23 28.9818C188.385 28.2094 187.963 27.2606 187.963 26.1381C187.963 24.3182 189.031 23.1707 191.166 22.6706L193.773 22.0469C194.444 21.8969 194.766 21.6732 194.766 21.3731V20.8994C194.766 20.2006 194.569 19.6519 194.145 19.2532C193.722 18.8531 193.177 18.6544 192.506 18.6544C191.836 18.6544 191.289 18.8531 190.867 19.2532C190.446 19.6519 190.246 20.1256 190.246 20.6994V20.8744C190.246 21.3481 189.874 21.5981 189.129 21.5981C188.383 21.5981 188.011 21.3244 188.011 20.7994L187.986 20.6494L187.988 20.6507Z" fill="#fff"/>
+          <path d="M206.436 21.1998C206.436 20.3774 206.212 19.7536 205.766 19.3036C205.319 18.8548 204.773 18.6311 204.102 18.6311C203.431 18.6311 202.886 18.8548 202.438 19.3036C201.991 19.7523 201.768 20.376 201.768 21.1998V25.6134C201.768 26.4372 201.991 27.061 202.413 27.5097C202.835 27.9584 203.406 28.1834 204.102 28.1834C204.797 28.1834 205.344 27.9584 205.791 27.5097C206.237 27.061 206.46 26.4372 206.46 25.6134L206.435 21.1998H206.436ZM208.647 25.7648C208.647 27.161 208.2 28.2334 207.306 29.0072C206.413 29.7797 205.345 30.1547 204.078 30.1547C202.811 30.1547 201.744 29.756 200.85 28.9822C199.957 28.2098 199.51 27.1123 199.51 25.7148V21.1511C199.51 19.7299 199.932 18.6324 200.775 17.8587C201.62 17.0849 202.613 16.6862 203.756 16.6862C204.898 16.6862 205.767 17.0349 206.438 17.7587V12.1962C206.438 11.6725 206.811 11.3975 207.555 11.3975C208.299 11.3975 208.673 11.6712 208.673 12.1962L208.648 25.7648H208.647Z" fill="#fff"/>
+          <path d="M215.874 18.6545C215.228 18.6545 214.682 18.8545 214.26 19.2533C213.838 19.6533 213.614 20.2257 213.614 20.9995V23.2682C213.738 23.1431 213.986 23.0194 214.359 22.9194L216.867 22.2957C217.762 22.047 218.209 21.4732 218.209 20.5745C218.209 20.0507 217.984 19.602 217.563 19.2269C217.141 18.8532 216.594 18.6532 215.924 18.6532H215.874V18.6545ZM220.442 26.1882C220.442 27.2857 220.02 28.2095 219.177 28.9819C218.332 29.7544 217.264 30.1294 215.972 30.1294C214.507 30.1294 213.39 29.7057 212.619 28.8319C211.85 27.9581 211.452 26.812 211.452 25.3894V21.1495C211.452 19.7783 211.874 18.6795 212.719 17.8821C213.563 17.0833 214.655 16.6846 215.971 16.6846C217.286 16.6846 218.38 17.0596 219.224 17.8321C220.068 18.6058 220.489 19.5533 220.489 20.6758C220.489 22.497 219.422 23.6445 217.286 24.1433L214.679 24.767C214.008 24.917 213.686 25.142 213.686 25.4408V25.9145C213.686 26.6132 213.909 27.162 214.332 27.5607C214.755 27.9594 215.3 28.1595 215.971 28.1595C216.642 28.1595 217.188 27.9594 217.61 27.5607C218.032 27.1607 218.256 26.6633 218.256 26.0895V25.9145C218.256 25.4408 218.628 25.1907 219.373 25.1907C220.119 25.1907 220.491 25.4644 220.491 25.9895L220.441 26.1882H220.442Z" fill="#fff"/>
+        </svg>
+      </span>
+    </div>
+    <span class="tag" style="margin-top:auto">Apresentação para a Rede de Franqueados</span>
+    <div class="cover-big">Mais visibilidade no Google,<br>mais pacientes para <span style="color:var(--accent)">cada unidade</span>.</div>
+    <p class="cover-sub">Como a LabMídia vai posicionar a marca Clínica da Cidade no topo das buscas — gerando tráfego qualificado e oportunidades de negócio para toda a rede.</p>
+    <div class="pillrow">
+      <span class="pill">📈 SEO / Tráfego Orgânico</span>
+      <span class="pill">🏥 Foco em saúde local</span>
+      <span class="pill">🤝 Resultado para franqueados</span>
+    </div>
+  </section>
+
+  <!-- 2. OBJETIVO -->
+  <section class="slide" data-title="Por que esta apresentação">
+    <span class="eyebrow">Sobre esta apresentação</span>
+    <h1 class="title">Por que estamos reunindo a rede</h1>
+    <p class="lead">A marca está investindo para crescer no <span class="hl">tráfego orgânico do Google</span>. Esta apresentação explica, de forma transparente, o que será feito, como e o impacto esperado para <span class="hl">cada unidade franqueada</span>.</p>
+    <div class="grid g3">
+      <div class="card"><div class="ic">🏢</div><h3>Quem executa</h3><p>A empresa e a equipe responsável pelo projeto de SEO da rede.</p></div>
+      <div class="card"><div class="ic amber">🎯</div><h3>O que será feito</h3><p>Escopo, estratégias e os indicadores que vamos acompanhar e melhorar.</p></div>
+      <div class="card"><div class="ic green">📊</div><h3>O retorno</h3><p>Benefícios para a rede e para as unidades, com cases reais de resultado.</p></div>
+    </div>
+    <div class="card" style="margin-top:1.2rem;border-left:4px solid var(--teal)">
+      <p style="color:var(--ink);font-size:1.05rem"><b>O objetivo é simples:</b> demonstrar o valor do investimento realizado e o impacto esperado no fortalecimento da presença digital da marca e na geração de oportunidades de negócio.</p>
+    </div>
+  </section>
+
+  <!-- 3. QUEM É A LABMÍDIA -->
+  <section class="slide dark" data-title="Quem é a LabMídia">
+    <span class="eyebrow">A empresa</span>
+    <h1 class="title">Especialistas em colocar empresas no topo do Google</h1>
+    <p class="lead">Há mais de 10 anos a LabMídia gera crescimento orgânico para negócios em nichos altamente competitivos — com método próprio e foco em resultado.</p>
+    <div class="grid g4">
+      <div class="card soft"><div class="stat white">+37</div><div class="statlbl">Especialistas dedicados ao sucesso dos clientes</div></div>
+      <div class="card soft"><div class="stat white">+80</div><div class="statlbl">Clientes ativos — sem travas contratuais</div></div>
+      <div class="card soft"><div class="stat white">+3.000</div><div class="statlbl">Sites em rede própria de backlinks de autoridade</div></div>
+      <div class="card soft"><div class="stat white">+10 anos</div><div class="statlbl">Construindo autoridade e resultados em SEO</div></div>
+    </div>
+    <div class="grid g2" style="margin-top:1.1rem">
+      <div class="card soft"><h3>🤝 Networking de elite</h3><p>Fazemos parte dos principais grupos de networking do Brasil, como o G4 Educação — parcerias que garantem inovação constante.</p></div>
+      <div class="card soft"><h3>🧩 Estrutura completa</h3><p>Times de SEO técnico & backlinks, conteúdo, otimização on-page & programação, e gestão/sucesso do cliente.</p></div>
+    </div>
+  </section>
+
+  <!-- 4. EQUIPE / SÓCIOS -->
+  <section class="slide" data-title="Equipe responsável">
+    <span class="eyebrow">Liderança e equipe</span>
+    <h1 class="title">Quem está por trás do projeto</h1>
+    <div class="grid g2" style="margin-top:1.2rem">
+      <div class="card">
+        <div class="person">
+          <img class="photo" src="img/diogenes.jpg" alt="Diógenes Malaquias" />
+          <div>
+            <h3>Diógenes Malaquias</h3>
+            <div class="role">Sócio-fundador & CEO</div>
+            <p>+20 anos de experiência empreendedora. Levou a LabMídia a R$ 500 mil/mês de faturamento em menos de 2 anos. Mentor no G4 Educação, engenheiro pela UFMG.</p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="person">
+          <img class="photo" src="img/rafael.jpg" alt="Rafael Pirondi" />
+          <div>
+            <h3>Rafael Pirondi</h3>
+            <div class="role">Sócio & Especialista em SEO</div>
+            <p>+13 anos de SEO, com formação internacional. Desenvolveu metodologia exclusiva de posicionamento rápido, com Top 3 em mais de 100 nichos diferentes.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card teamband">
+      <img src="img/equipe.jpg" alt="Equipe LabMídia" />
+      <div>
+        <h3>Um time com +37 especialistas</h3>
+        <p>Por trás dos sócios, uma equipe completa e dedicada: SEO técnico & backlinks, conteúdo, otimização on-page & programação, e gestão/sucesso do cliente — todos trabalhando pelo resultado da rede.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. POR QUE SEO -->
+  <section class="slide teal" data-title="Por que tráfego orgânico">
+    <span class="eyebrow">A oportunidade do canal</span>
+    <h1 class="title" style="max-width:18ch">Quem aparece no Google, atrai o paciente primeiro</h1>
+    <p class="lead">Todos os dias, milhares de pessoas pesquisam por médicos, especialidades e exames na cidade delas. Quem está no topo recebe o contato — quem não está, perde para o concorrente.</p>
+    <div class="grid g3">
+      <div class="card soft"><div class="ic soft">🔍</div><h3>Intenção de compra</h3><p>Quem busca "dermatologista" na sua cidade quer agendar agora.</p></div>
+      <div class="card soft"><div class="ic soft">💰</div><h3>Tráfego que não para</h3><p>Diferente do anúncio pago, o SEO continua gerando acessos sem custo por clique.</p></div>
+      <div class="card soft"><div class="ic soft">🏆</div><h3>Autoridade de marca</h3><p>Aparecer no topo fortalece a credibilidade da Clínica da Cidade.</p></div>
+    </div>
+    <p class="footnote" style="color:rgba(255,255,255,.7)">O tripé do SEO: <b>Backlinks</b> (autoridade) + <b>On-page</b> (site otimizado) + <b>Conteúdo</b> (responder o que as pessoas buscam).</p>
+  </section>
+
+  <!-- 6. A OPORTUNIDADE CC -->
+  <section class="slide dark" data-title="A oportunidade Clínica da Cidade">
+    <span class="eyebrow">Diagnóstico · Clínica da Cidade</span>
+    <h1 class="title">O tamanho da oportunidade que está na mesa</h1>
+    <p class="lead">Mapeamos a demanda real de buscas pelos serviços da Clínica da Cidade nas cidades onde a marca atua. O potencial é enorme — e hoje está praticamente todo sendo capturado pela concorrência.</p>
+    <div class="grid g4">
+      <div class="card soft"><div class="stat white">242.330</div><div class="statlbl">Buscas/mês pelos serviços da marca</div></div>
+      <div class="card soft"><div class="stat white">1.240</div><div class="statlbl">Palavras-chave relevantes mapeadas</div></div>
+      <div class="card soft"><div class="stat white">39</div><div class="statlbl">Cidades com demanda identificada</div></div>
+      <div class="card soft"><div class="stat" style="color:var(--accent)">Posição 0</div><div class="statlbl">Onde a marca aparece hoje na maioria dos termos</div></div>
+    </div>
+    <div class="card" style="margin-top:1.3rem;background:rgba(245,158,11,.14);border:1px solid rgba(245,158,11,.4)">
+      <p style="color:#ffe9c2;font-size:1.06rem"><b style="color:#fff">A leitura é direta:</b> existe uma demanda de ~240 mil buscas mensais e a marca ainda não a captura organicamente. Esse é exatamente o espaço que vamos ocupar.</p>
+    </div>
+  </section>
+
+  <!-- 7. ONDE ESTÃO AS BUSCAS -->
+  <section class="slide" data-title="Onde estão as buscas">
+    <span class="eyebrow">Demanda por cidade</span>
+    <h1 class="title">Onde estão as buscas — top 10 cidades</h1>
+    <p class="lead">Cada unidade franqueada tem um mercado local esperando para ser capturado. Veja o volume mensal de buscas por cidade.</p>
+    <div class="bars">
+      <div class="bar-row"><span class="nm">São Paulo</span><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><span class="vl">30.170</span></div>
+      <div class="bar-row"><span class="nm">Sorocaba</span><div class="bar-track"><div class="bar-fill" style="width:73.7%"></div></div><span class="vl">22.250</span></div>
+      <div class="bar-row"><span class="nm">Campinas</span><div class="bar-track"><div class="bar-fill" style="width:62.7%"></div></div><span class="vl">18.910</span></div>
+      <div class="bar-row"><span class="nm">Belo Horizonte</span><div class="bar-track"><div class="bar-fill" style="width:46%"></div></div><span class="vl">13.870</span></div>
+      <div class="bar-row"><span class="nm">Guarulhos</span><div class="bar-track"><div class="bar-fill" style="width:32.1%"></div></div><span class="vl">9.690</span></div>
+      <div class="bar-row"><span class="nm">Teresina</span><div class="bar-track"><div class="bar-fill" style="width:31.7%"></div></div><span class="vl">9.570</span></div>
+      <div class="bar-row"><span class="nm">Piracicaba</span><div class="bar-track"><div class="bar-fill" style="width:30.5%"></div></div><span class="vl">9.190</span></div>
+      <div class="bar-row"><span class="nm">Santos</span><div class="bar-track"><div class="bar-fill" style="width:29.9%"></div></div><span class="vl">9.010</span></div>
+      <div class="bar-row"><span class="nm">Jundiaí</span><div class="bar-track"><div class="bar-fill" style="width:29.2%"></div></div><span class="vl">8.810</span></div>
+      <div class="bar-row"><span class="nm">Taguatinga</span><div class="bar-track"><div class="bar-fill" style="width:27.9%"></div></div><span class="vl">8.410</span></div>
+    </div>
+    <p class="footnote">Volume de buscas mensais estimado · 39 cidades mapeadas em 9 estados · líder: São Paulo (12,4% do total).</p>
+  </section>
+
+  <!-- 8. O QUE BUSCAM -->
+  <section class="slide" data-title="O que as pessoas buscam">
+    <span class="eyebrow">Demanda por serviço</span>
+    <h1 class="title">O que as pessoas mais procuram</h1>
+    <p class="lead">As especialidades e exames com maior volume de busca — o mapa do que priorizar para gerar agendamentos.</p>
+    <div class="bars">
+      <div class="bar-row"><span class="nm">Oftalmologia</span><div class="bar-track"><div class="bar-fill amber" style="width:100%"></div></div><span class="vl">31.210</span></div>
+      <div class="bar-row"><span class="nm">Urologia</span><div class="bar-track"><div class="bar-fill amber" style="width:93.2%"></div></div><span class="vl">29.090</span></div>
+      <div class="bar-row"><span class="nm">Dermatologia</span><div class="bar-track"><div class="bar-fill amber" style="width:74%"></div></div><span class="vl">23.100</span></div>
+      <div class="bar-row"><span class="nm">Psiquiatria</span><div class="bar-track"><div class="bar-fill amber" style="width:51.3%"></div></div><span class="vl">16.020</span></div>
+      <div class="bar-row"><span class="nm">Clínica / Centro Médico</span><div class="bar-track"><div class="bar-fill amber" style="width:51.2%"></div></div><span class="vl">15.980</span></div>
+      <div class="bar-row"><span class="nm">Endocrinologia</span><div class="bar-track"><div class="bar-fill amber" style="width:47.7%"></div></div><span class="vl">14.880</span></div>
+      <div class="bar-row"><span class="nm">Ultrassom</span><div class="bar-track"><div class="bar-fill amber" style="width:43.8%"></div></div><span class="vl">13.660</span></div>
+      <div class="bar-row"><span class="nm">Ortopedia</span><div class="bar-track"><div class="bar-fill amber" style="width:43.3%"></div></div><span class="vl">13.500</span></div>
+      <div class="bar-row"><span class="nm">Cardiologia</span><div class="bar-track"><div class="bar-fill amber" style="width:43.1%"></div></div><span class="vl">13.460</span></div>
+    </div>
+    <p class="footnote">40 serviços classificados · Oftalmologia lidera com 12,9% de toda a demanda mapeada.</p>
+  </section>
+
+  <!-- 9. ESCOPO -->
+  <section class="slide" data-title="Escopo do trabalho">
+    <span class="eyebrow">O escopo do trabalho</span>
+    <h1 class="title">O que será entregue</h1>
+    <p class="lead">Um pacote completo de SEO trabalhando de forma contínua — técnico, conteúdo e autoridade, com gestão dedicada.</p>
+    <div class="grid g2">
+      <div class="card"><h3><span class="ic" style="width:34px;height:34px">🔗</span> SEO Técnico & Backlinks</h3>
+        <ul class="clean">
+          <li>Backlinks de alta autoridade da rede própria (+3.000 sites)</li>
+          <li>Construção de autoridade e credibilidade no Google</li>
+        </ul>
+      </div>
+      <div class="card"><h3><span class="ic amber" style="width:34px;height:34px">⚙️</span> Otimização On-page & Programação</h3>
+        <ul class="clean">
+          <li>Otimização técnica, velocidade e indexação</li>
+          <li>Estrutura de páginas por especialidade e por cidade</li>
+        </ul>
+      </div>
+      <div class="card"><h3><span class="ic green" style="width:34px;height:34px">📝</span> Conteúdo</h3>
+        <ul class="clean">
+          <li>Artigos de blog por especialidade, sintoma e região</li>
+          <li>Pesquisa de palavras-chave que trazem pacientes</li>
+        </ul>
+      </div>
+      <div class="card"><h3><span class="ic" style="width:34px;height:34px">📈</span> Gestão & Sucesso do Cliente</h3>
+        <ul class="clean">
+          <li>Gestor de contas e grupo direto no WhatsApp</li>
+          <li>Relatórios e reuniões mensais de resultado</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. ESTRATÉGIAS -->
+  <section class="slide dark" data-title="Principais estratégias">
+    <span class="eyebrow">As principais estratégias</span>
+    <h1 class="title">Como vamos capturar a demanda</h1>
+    <div class="grid g2" style="margin-top:1.3rem">
+      <div class="card soft"><h3>🗺️ Arquitetura especialidade × cidade</h3><p>Páginas otimizadas para cobrir as 1.240 palavras-chave — cada especialidade na cidade certa.</p></div>
+      <div class="card soft"><h3>📍 SEO local por unidade</h3><p>Cada franquia posicionada na busca da sua região, fortalecendo Google Meu Negócio e mapas.</p></div>
+      <div class="card soft"><h3>🔗 Autoridade com backlinks</h3><p>Links de qualidade da rede própria elevando a confiança da marca aos olhos do Google.</p></div>
+      <div class="card soft"><h3>📝 Conteúdo que responde dúvidas</h3><p>Artigos sobre sintomas, exames e especialidades que atraem o paciente no início da jornada.</p></div>
+      <div class="card soft"><h3>⚙️ Saúde técnica do site</h3><p>Velocidade, indexação e dados estruturados de saúde para maximizar a performance.</p></div>
+      <div class="card soft"><h3>🎯 Foco em fundo de funil</h3><p>Priorização de termos ligados a agendamento e conversão em contato comercial.</p></div>
+    </div>
+  </section>
+
+  <!-- 11. DIFERENCIAIS -->
+  <section class="slide" data-title="LabMídia × agência tradicional">
+    <span class="eyebrow">Por que a LabMídia é diferente</span>
+    <h1 class="title">LabMídia × agência tradicional</h1>
+    <table class="cmp">
+      <thead><tr><th class="lab">LabMídia</th><th class="trad">Agência tradicional</th></tr></thead>
+      <tbody>
+        <tr><td class="lab">Portfólio com dados reais e comprovados</td><td class="trad">Apresentação genérica, sem métricas claras</td></tr>
+        <tr><td class="lab">Rede própria de +3.000 sites de backlinks</td><td class="trad">Dependência de fornecedores externos e caros</td></tr>
+        <tr><td class="lab">Planejamento claro para 3, 6 e 12 meses</td><td class="trad">Metas vagas e resultados de longo prazo</td></tr>
+        <tr><td class="lab">Sem fidelidade · cancele quando quiser</td><td class="trad">Fidelidade obrigatória e multa por rescisão</td></tr>
+        <tr><td class="lab">Atendimento dedicado por especialistas</td><td class="trad">Atendimento genérico e rotativo</td></tr>
+        <tr><td class="lab">Relatórios detalhados + reuniões mensais</td><td class="trad">Relatórios superficiais, sem explicação</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 12. BENEFÍCIOS -->
+  <section class="slide teal" data-title="Benefícios para a rede">
+    <span class="eyebrow">Benefícios esperados</span>
+    <h1 class="title">O que a rede e cada franqueado ganham</h1>
+    <div class="grid g2" style="margin-top:1.2rem">
+      <div class="card soft"><h3>🏥 Leads para cada unidade</h3><p>Quando a marca sobe no Google, cada franquia recebe contatos da sua própria cidade.</p></div>
+      <div class="card soft"><h3>🛡️ Menos dependência de mídia paga</h3><p>Tráfego orgânico reduz o custo de aquisição e traz previsibilidade de demanda.</p></div>
+      <div class="card soft"><h3>🌐 Autoridade nacional, resultado local</h3><p>O investimento é diluído na rede, mas o resultado aparece na busca de cada região.</p></div>
+      <div class="card soft"><h3>📊 Padronização e marca forte</h3><p>Presença digital consistente fortalece a percepção e a confiança na marca.</p></div>
+    </div>
+    <p class="footnote" style="color:rgba(255,255,255,.78)">Em resumo: <b>mais visibilidade da marca → mais buscas capturadas → mais agendamentos nas unidades.</b></p>
+  </section>
+
+  <!-- 13. INDICADORES -->
+  <section class="slide" data-title="Indicadores acompanhados">
+    <span class="eyebrow">Indicadores que vamos acompanhar</span>
+    <h1 class="title">Como mediremos o progresso</h1>
+    <p class="lead">Transparência total: indicadores reportados em relatórios e reuniões mensais.</p>
+    <div class="grid g3">
+      <div class="card"><div class="ic">🔑</div><h3>Palavras posicionadas</h3><p>Evolução de termos no Top 3, Top 5 e Top 10 do Google.</p></div>
+      <div class="card"><div class="ic amber">👥</div><h3>Tráfego orgânico</h3><p>Sessões e visitantes vindos da busca, por cidade e serviço.</p></div>
+      <div class="card"><div class="ic green">📞</div><h3>Leads & contatos</h3><p>Agendamentos, cliques no WhatsApp e ligações gerados.</p></div>
+      <div class="card"><div class="ic">📈</div><h3>Posição média</h3><p>Impressões, cliques e posição média no Search Console.</p></div>
+      <div class="card"><div class="ic amber">🔗</div><h3>Autoridade do domínio</h3><p>Crescimento de backlinks e força da marca no Google.</p></div>
+      <div class="card"><div class="ic green">🗺️</div><h3>Cobertura por unidade</h3><p>Quanto da demanda local de cada franquia está sendo capturada.</p></div>
+    </div>
+  </section>
+
+  <!-- 14. JORNADA -->
+  <section class="slide dark" data-title="Jornada 3/6/12 meses">
+    <span class="eyebrow">A jornada com a LabMídia</span>
+    <h1 class="title">Resultados que crescem com o tempo</h1>
+    <div class="journey">
+      <div class="jstep"><div class="mo">3 MESES</div><div class="h">Fundação & primeiros ganhos</div><p style="color:var(--muted)">Mais palavras-chave posicionadas e subida para posições superiores no Google.</p></div>
+      <div class="jstep"><div class="mo">6 MESES</div><div class="h">Tração comercial</div><p style="color:var(--muted)">Tráfego qualificado crescente, mais contatos comerciais e avanço sobre a concorrência.</p></div>
+      <div class="jstep"><div class="mo">12 MESES</div><div class="h">Liderança & volume</div><p style="color:var(--muted)">Diversas palavras na 1ª página e Top 5, com volume consistente de leads que aumentam o faturamento.</p></div>
+    </div>
+    <p class="footnote" style="color:rgba(255,255,255,.6)">SEO é um ativo: o resultado se acumula e se compõe ao longo do tempo.</p>
+  </section>
+
+  <!-- 15. CASES -->
+  <section class="slide" data-title="Cases de sucesso">
+    <span class="eyebrow">Cases de sucesso</span>
+    <h1 class="title">Resultados reais em projetos semelhantes</h1>
+    <p class="lead">Exemplos de crescimento de tráfego orgânico — nichos preservados por confidencialidade.</p>
+    <div class="grid g3">
+      <div class="case"><div class="niche">Saúde · Médica especialista</div><div class="kw">"cefaleia holocraniana"</div>
+        <div class="jump"><span class="from">8</span><span class="arrow">→</span><span class="to">29.066</span></div>
+        <div class="pos">acessos/mês · posição <b>+100ª → 1ª</b></div></div>
+      <div class="case"><div class="niche">Franquia · Depilação a laser</div><div class="kw">"franquia depilação a laser"</div>
+        <div class="jump"><span class="from">3.084</span><span class="arrow">→</span><span class="to">44.907</span></div>
+        <div class="pos">acessos/mês · posição <b>+100ª → 1ª</b></div></div>
+      <div class="case"><div class="niche">E-commerce</div><div class="kw">"capacete preto"</div>
+        <div class="jump"><span class="from">0</span><span class="arrow">→</span><span class="to">134.145</span></div>
+        <div class="pos">acessos/mês · posição <b>16ª → 2ª</b></div></div>
+      <div class="case"><div class="niche">Consultoria · Agronegócio</div><div class="kw">"consultoria agronegócio"</div>
+        <div class="jump"><span class="from">93</span><span class="arrow">→</span><span class="to">19.971</span></div>
+        <div class="pos">acessos/mês · posição <b>67ª → 2ª</b></div></div>
+      <div class="case"><div class="niche">SaaS · Varejo de moda</div><div class="kw">"sistema para loja de roupa"</div>
+        <div class="jump"><span class="from">30</span><span class="arrow">→</span><span class="to">11.178</span></div>
+        <div class="pos">acessos/mês · posição <b>+100ª → 3ª</b></div></div>
+      <div class="case"><div class="niche">Indústria · Geradores</div><div class="kw">"gerador para condomínio preço"</div>
+        <div class="jump"><span class="from">1.077</span><span class="arrow">→</span><span class="to">5.719</span></div>
+        <div class="pos">acessos/mês · posição <b>+100ª → 1ª</b></div></div>
+    </div>
+  </section>
+
+  <!-- 16. DEPOIMENTOS -->
+  <section class="slide" data-title="Depoimentos">
+    <span class="eyebrow">O que dizem os clientes</span>
+    <h1 class="title">Confiança de quem já vê resultado</h1>
+    <div class="grid g3" style="margin-top:1.3rem">
+      <div class="card"><p style="font-size:1rem;color:var(--ink)">"Vi ele entregando resultados incríveis de SEO para toda a comunidade do G4. Recomendo 100%!"</p><div style="margin-top:1rem;font-weight:800">Bruno Nardon</div><div style="color:var(--muted);font-size:.85rem">Fundador · G4 Educação</div></div>
+      <div class="card"><p style="font-size:1rem;color:var(--ink)">"Em poucos meses começamos a ver nossos produtos no topo das buscas. Faço só uma olhada por mês. Super recomendo!"</p><div style="margin-top:1rem;font-weight:800">Marco Mascari</div><div style="color:var(--muted);font-size:.85rem">Fundador · ASX Capacetes</div></div>
+      <div class="card"><p style="font-size:1rem;color:var(--ink)">"Mais leads qualificados e menos dependência de tráfego pago em pouco tempo. Vale muito a pena!"</p><div style="margin-top:1rem;font-weight:800">Rodrigo Noll</div><div style="color:var(--muted);font-size:.85rem">Fundador · Base Viral</div></div>
+    </div>
+  </section>
+
+  <!-- 17. PRÓXIMOS PASSOS -->
+  <section class="slide dark" data-title="Próximos passos">
+    <span class="eyebrow">Próximos passos</span>
+    <h1 class="title">Como a parceria avança</h1>
+    <div class="grid g4" style="margin-top:1.3rem">
+      <div class="card soft"><div class="stat" style="color:var(--accent)">01</div><div class="statlbl">Alinhamento e onboarding com o time da rede</div></div>
+      <div class="card soft"><div class="stat" style="color:var(--accent)">02</div><div class="statlbl">Briefing e acesso aos ativos digitais</div></div>
+      <div class="card soft"><div class="stat" style="color:var(--accent)">03</div><div class="statlbl">Análise de SEO, mercado e concorrência</div></div>
+      <div class="card soft"><div class="stat" style="color:var(--accent)">04</div><div class="statlbl">Reunião de estratégia e otimizações on-page</div></div>
+    </div>
+    <div class="grid g3" style="margin-top:1.1rem">
+      <div class="card soft"><div class="stat" style="color:var(--accent)">05</div><div class="statlbl">Início: on-page, backlinks e primeiros artigos</div></div>
+      <div class="card soft"><div class="stat" style="color:var(--accent)">06</div><div class="statlbl">Execução contínua por cidade e especialidade</div></div>
+      <div class="card soft"><div class="stat" style="color:var(--accent)">07</div><div class="statlbl">Reuniões mensais de resultado com a rede</div></div>
+    </div>
+  </section>
+
+  <!-- 18. ENCERRAMENTO -->
+  <section class="slide teal" data-title="Encerramento">
+    <div class="cover-mark"><div class="lab-logo"><span class="dot"></span>LabMídia</div></div>
+    <h1 class="cover-big" style="margin-top:auto;color:#fff">Vamos colocar a Clínica da Cidade<br>onde o paciente procura.</h1>
+    <p class="cover-sub" style="color:rgba(255,255,255,.9)">240 mil buscas por mês esperando pela marca. Juntos, transformamos essa demanda em agendamentos para cada unidade da rede.</p>
+    <div class="badge-row" style="margin-top:1.6rem">
+      <span class="badge">labmidia.com.br</span>
+      <span class="badge">Obrigado!</span>
+    </div>
+  </section>
+
+</div>
+
+<div class="nav">
+  <button id="prev" aria-label="Anterior">‹</button>
+  <button id="next" aria-label="Próximo">›</button>
+  <span class="count"><b id="cur">01</b><span id="tot"> / 18</span></span>
+  <span class="title-mini" id="tmini">Capa</span>
+  <div class="dots" id="dots"></div>
+</div>
+
+<script>
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var i = 0;
+  var progress = document.getElementById('progress');
+  var cur = document.getElementById('cur');
+  var tot = document.getElementById('tot');
+  var tmini = document.getElementById('tmini');
+  var dotsWrap = document.getElementById('dots');
+  tot.textContent = ' / ' + String(slides.length).padStart(2,'0');
+
+  slides.forEach(function(s,k){
+    var d = document.createElement('i');
+    d.addEventListener('click', function(){ show(k); });
+    dotsWrap.appendChild(d);
+  });
+  var dots = Array.prototype.slice.call(dotsWrap.children);
+
+  function show(n){
+    i = Math.max(0, Math.min(slides.length-1, n));
+    slides.forEach(function(s,k){ s.classList.toggle('active', k===i); });
+    dots.forEach(function(d,k){ d.classList.toggle('on', k===i); });
+    progress.style.width = ((i+1)/slides.length*100) + '%';
+    cur.textContent = String(i+1).padStart(2,'0');
+    tmini.textContent = slides[i].getAttribute('data-title') || '';
+    var act = slides[i]; if(act) act.scrollTop = 0;
+  }
+  document.getElementById('next').addEventListener('click', function(){ show(i+1); });
+  document.getElementById('prev').addEventListener('click', function(){ show(i-1); });
+  document.addEventListener('keydown', function(e){
+    if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' ') { show(i+1); e.preventDefault(); }
+    if(e.key==='ArrowLeft'||e.key==='PageUp') { show(i-1); e.preventDefault(); }
+    if(e.key==='Home') show(0);
+    if(e.key==='End') show(slides.length-1);
+  });
+  show(0);
+</script>
+</body>
+</html>
