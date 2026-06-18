@@ -162,12 +162,61 @@
   .badge-row{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1rem}
   .badge{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:.5rem .85rem;font-size:.85rem;font-weight:700;color:var(--ink);box-shadow:var(--shadow-sm)}
 
+  /* google search mock (slide oportunidade) */
+  .gsearch{display:flex;gap:1.4rem;align-items:stretch;margin:1.5rem 0 .2rem;flex-wrap:wrap}
+  .gbox{background:#fff;border-radius:20px;padding:1.5rem 1.8rem;box-shadow:var(--shadow);flex:1 1 360px;max-width:540px}
+  .glogo{font-family:Arial,Helvetica,sans-serif;font-weight:700;font-size:1.85rem;letter-spacing:-1px;text-align:center;margin-bottom:1rem}
+  .gfield{display:flex;align-items:center;gap:.8rem;border:1px solid #dfe1e5;border-radius:999px;padding:.85rem 1.25rem;box-shadow:0 1px 6px rgba(32,33,36,.16)}
+  .gfield .mag{flex:none}
+  .gquery{font-size:1.18rem;color:#202124;font-family:Arial,Helvetica,sans-serif;white-space:nowrap}
+  .gcursor{width:2px;height:1.35rem;background:#4285F4;display:inline-block;margin-left:-.45rem;animation:blink 1.05s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+  .gmic{margin-left:auto;flex:none}
+  .gvol{display:flex;align-items:center;gap:1rem;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.24);border-radius:18px;padding:1.2rem 1.5rem;flex:1 1 240px;max-width:360px}
+  .gvol-ic{font-size:2rem;flex:none}
+  .gvol-num{font-size:clamp(2rem,3.4vw,2.7rem);font-weight:800;color:#fff;line-height:1;letter-spacing:-.02em}
+  .gvol-lbl{font-size:.92rem;color:rgba(255,255,255,.9);margin-top:.35rem;line-height:1.4}
+
+  /* featured cases (slide cases) */
+  .feat-wrap{display:grid;grid-template-columns:repeat(2,1fr);gap:1.2rem;margin-top:1.3rem}
+  .feat{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:1.4rem 1.5rem;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:.85rem;overflow:hidden}
+  .feat::after{content:"";position:absolute;right:-46px;top:-46px;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,rgba(22,163,74,.13),transparent 70%)}
+  .feat-top{display:flex;align-items:center;gap:1rem}
+  .brandmark{height:56px;min-width:118px;border-radius:13px;display:flex;align-items:center;justify-content:center;padding:0 1.1rem;flex:none;box-shadow:var(--shadow-sm)}
+  .brandmark.asx{background:#0c0c0d}
+  .brandmark.sabin{background:#fff;border:1px solid var(--line)}
+  .bm-asx{font-family:Arial,Helvetica,sans-serif;font-weight:900;font-style:italic;font-size:1.85rem;letter-spacing:.5px;color:#fff;line-height:1}
+  .bm-asx span{color:#e2231a}
+  .bm-sabin{font-family:Arial,Helvetica,sans-serif;font-weight:700;font-size:1.85rem;letter-spacing:-1.2px;color:#e2231a;line-height:1}
+  .feat .bname{font-size:1.18rem;font-weight:800;color:var(--ink)}
+  .feat .bniche{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+  .feat .bkw{font-size:1.04rem;color:var(--ink)}
+  .feat .bkw b{color:var(--teal-d)}
+  .rankbadge{display:inline-flex;align-items:center;gap:.55rem;background:linear-gradient(135deg,#15803d,#22c55e);color:#fff;border-radius:13px;padding:.45rem .95rem;font-weight:800;align-self:flex-start;box-shadow:0 6px 16px rgba(22,163,74,.3)}
+  .rankbadge .n{font-size:1.7rem;line-height:1}
+  .rankbadge .t{font-size:.82rem;font-weight:700;line-height:1.1}
+  .feat-metric{display:flex;align-items:baseline;gap:.55rem;border-top:1px dashed var(--line);padding-top:.85rem;flex-wrap:wrap;margin-top:auto}
+  .feat-metric .to{color:var(--good);font-size:1.85rem;font-weight:800;letter-spacing:-.02em}
+  .feat-metric .from{color:var(--muted);text-decoration:line-through;font-size:.95rem}
+  .feat-metric .mlbl{color:var(--muted);font-size:.85rem}
+
+  .others-h{font-size:.82rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:1.4rem 0 .7rem}
+  .others{display:grid;grid-template-columns:repeat(5,1fr);gap:.8rem}
+  .omini{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:.9rem .95rem;box-shadow:var(--shadow-sm)}
+  .omini .on{font-size:.7rem;font-weight:800;text-transform:uppercase;color:var(--muted);letter-spacing:.04em}
+  .omini .ok{font-size:.82rem;color:var(--ink);font-weight:600;margin:.3rem 0 .55rem;line-height:1.3}
+  .omini .oj{font-size:1.3rem;font-weight:800;color:var(--good);line-height:1}
+  .omini .op{font-size:.73rem;color:var(--muted);margin-top:.35rem}
+  .omini .op b{color:var(--teal-d)}
+
   @media (max-width:760px){
     .g2,.g3,.g4,.journey{grid-template-columns:1fr}
     .bar-row{grid-template-columns:110px 1fr 60px;gap:.5rem}
     .bar-row .nm{font-size:.78rem}
     .slide{padding:3vh 6vw 9vh}
     .dots{display:none}
+    .feat-wrap{grid-template-columns:1fr}
+    .others{grid-template-columns:1fr 1fr}
   }
 </style>
 </head>
@@ -283,6 +332,25 @@
     <span class="eyebrow">A oportunidade do canal</span>
     <h1 class="title" style="max-width:18ch">Quem aparece no Google, atrai o paciente primeiro</h1>
     <p class="lead">Todos os dias, milhares de pessoas pesquisam por médicos, especialidades e exames na cidade delas. Quem está no topo recebe o contato — quem não está, perde para o concorrente.</p>
+
+    <div class="gsearch">
+      <div class="gbox">
+        <div class="glogo"><span style="color:#4285F4">G</span><span style="color:#EA4335">o</span><span style="color:#FBBC05">o</span><span style="color:#4285F4">g</span><span style="color:#34A853">l</span><span style="color:#EA4335">e</span></div>
+        <div class="gfield">
+          <svg class="mag" width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="#9aa0a6" stroke-width="2"/><line x1="16.5" y1="16.5" x2="21" y2="21" stroke="#9aa0a6" stroke-width="2" stroke-linecap="round"/></svg>
+          <span class="gquery">cardiologista em sorocaba</span><span class="gcursor"></span>
+          <svg class="gmic" width="20" height="20" viewBox="0 0 24 24"><path d="M12 14a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v5a3 3 0 0 0 3 3Z" fill="#4285F4"/><path d="M17 11a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V20H9v2h6v-2h-2v-2.08A7 7 0 0 0 19 11h-2Z" fill="#34A853"/></svg>
+        </div>
+      </div>
+      <div class="gvol">
+        <div class="gvol-ic">📈</div>
+        <div>
+          <div class="gvol-num">~1.300<span style="font-size:1rem;font-weight:700">/mês</span></div>
+          <div class="gvol-lbl">buscas <b>só por este termo</b> em Sorocaba — e hoje a marca não aparece para captá-las.</div>
+        </div>
+      </div>
+    </div>
+
     <div class="grid g3">
       <div class="card soft"><div class="ic soft">🔍</div><h3>Intenção de compra</h3><p>Quem busca "dermatologista" na sua cidade quer agendar agora.</p></div>
       <div class="card soft"><div class="ic soft">💰</div><h3>Tráfego que não para</h3><p>Diferente do anúncio pago, o SEO continua gerando acessos sem custo por clique.</p></div>
@@ -453,42 +521,41 @@
   <!-- 15. CASES -->
   <section class="slide" data-title="Cases de sucesso">
     <span class="eyebrow">Cases de sucesso</span>
-    <h1 class="title">Resultados reais em projetos semelhantes</h1>
-    <p class="lead">Exemplos de crescimento de tráfego orgânico — nichos preservados por confidencialidade.</p>
-    <div class="grid g3">
-      <div class="case"><div class="niche">Saúde · Médica especialista</div><div class="kw">"cefaleia holocraniana"</div>
-        <div class="jump"><span class="from">8</span><span class="arrow">→</span><span class="to">29.066</span></div>
-        <div class="pos">acessos/mês · posição <b>+100ª → 1ª</b></div></div>
-      <div class="case"><div class="niche">Franquia · Depilação a laser</div><div class="kw">"franquia depilação a laser"</div>
-        <div class="jump"><span class="from">3.084</span><span class="arrow">→</span><span class="to">44.907</span></div>
-        <div class="pos">acessos/mês · posição <b>+100ª → 1ª</b></div></div>
-      <div class="case"><div class="niche">E-commerce</div><div class="kw">"capacete preto"</div>
-        <div class="jump"><span class="from">0</span><span class="arrow">→</span><span class="to">134.145</span></div>
-        <div class="pos">acessos/mês · posição <b>16ª → 2ª</b></div></div>
-      <div class="case"><div class="niche">Consultoria · Agronegócio</div><div class="kw">"consultoria agronegócio"</div>
-        <div class="jump"><span class="from">93</span><span class="arrow">→</span><span class="to">19.971</span></div>
-        <div class="pos">acessos/mês · posição <b>67ª → 2ª</b></div></div>
-      <div class="case"><div class="niche">SaaS · Varejo de moda</div><div class="kw">"sistema para loja de roupa"</div>
-        <div class="jump"><span class="from">30</span><span class="arrow">→</span><span class="to">11.178</span></div>
-        <div class="pos">acessos/mês · posição <b>+100ª → 3ª</b></div></div>
-      <div class="case"><div class="niche">Indústria · Geradores</div><div class="kw">"gerador para condomínio preço"</div>
-        <div class="jump"><span class="from">1.077</span><span class="arrow">→</span><span class="to">5.719</span></div>
-        <div class="pos">acessos/mês · posição <b>+100ª → 1ª</b></div></div>
+    <h1 class="title">Marcas que colocamos na 1ª posição do Google</h1>
+    <p class="lead">Resultados reais em projetos semelhantes. Em destaque, dois cases em <span class="hl">posição #1</span>.</p>
+
+    <div class="feat-wrap">
+      <div class="feat">
+        <div class="feat-top">
+          <div class="brandmark asx"><span class="bm-asx">AS<span>X</span></span></div>
+          <div><div class="bname">ASX Capacetes</div><div class="bniche">E-commerce · Capacetes de moto</div></div>
+        </div>
+        <div class="bkw">Palavra-chave: <b>"capacete preto"</b></div>
+        <span class="rankbadge"><span class="n">#1</span><span class="t">posição<br>no Google</span></span>
+        <div class="feat-metric"><span class="from">16ª pos.</span><span style="color:var(--good)">→</span><span class="to">134.145</span><span class="mlbl">acessos orgânicos/mês</span></div>
+      </div>
+      <div class="feat">
+        <div class="feat-top">
+          <div class="brandmark sabin"><span class="bm-sabin">sabin</span></div>
+          <div><div class="bname">Sabin</div><div class="bniche">Saúde · Laboratório de análises</div></div>
+        </div>
+        <div class="bkw">Palavra-chave: <b>"laboratório brasília"</b></div>
+        <span class="rankbadge"><span class="n">#1</span><span class="t">posição<br>no Google</span></span>
+        <div class="feat-metric"><span class="to">~12.100</span><span class="mlbl">buscas/mês capturadas · termo nº1 da categoria <i>(est.)</i></span></div>
+      </div>
+    </div>
+
+    <div class="others-h">Outros exemplos de resultado</div>
+    <div class="others">
+      <div class="omini"><div class="on">Saúde · Médica</div><div class="ok">"cefaleia holocraniana"</div><div class="oj">29.066</div><div class="op">acessos/mês · <b>+100ª → 1ª</b></div></div>
+      <div class="omini"><div class="on">Franquia · Depilação</div><div class="ok">"franquia depilação a laser"</div><div class="oj">44.907</div><div class="op">acessos/mês · <b>+100ª → 1ª</b></div></div>
+      <div class="omini"><div class="on">Consultoria · Agro</div><div class="ok">"consultoria agronegócio"</div><div class="oj">19.971</div><div class="op">acessos/mês · <b>67ª → 2ª</b></div></div>
+      <div class="omini"><div class="on">SaaS · Moda</div><div class="ok">"sistema para loja de roupa"</div><div class="oj">11.178</div><div class="op">acessos/mês · <b>+100ª → 3ª</b></div></div>
+      <div class="omini"><div class="on">Indústria · Geradores</div><div class="ok">"gerador para condomínio preço"</div><div class="oj">5.719</div><div class="op">acessos/mês · <b>+100ª → 1ª</b></div></div>
     </div>
   </section>
 
-  <!-- 16. DEPOIMENTOS -->
-  <section class="slide" data-title="Depoimentos">
-    <span class="eyebrow">O que dizem os clientes</span>
-    <h1 class="title">Confiança de quem já vê resultado</h1>
-    <div class="grid g3" style="margin-top:1.3rem">
-      <div class="card"><p style="font-size:1rem;color:var(--ink)">"Vi ele entregando resultados incríveis de SEO para toda a comunidade do G4. Recomendo 100%!"</p><div style="margin-top:1rem;font-weight:800">Bruno Nardon</div><div style="color:var(--muted);font-size:.85rem">Fundador · G4 Educação</div></div>
-      <div class="card"><p style="font-size:1rem;color:var(--ink)">"Em poucos meses começamos a ver nossos produtos no topo das buscas. Faço só uma olhada por mês. Super recomendo!"</p><div style="margin-top:1rem;font-weight:800">Marco Mascari</div><div style="color:var(--muted);font-size:.85rem">Fundador · ASX Capacetes</div></div>
-      <div class="card"><p style="font-size:1rem;color:var(--ink)">"Mais leads qualificados e menos dependência de tráfego pago em pouco tempo. Vale muito a pena!"</p><div style="margin-top:1rem;font-weight:800">Rodrigo Noll</div><div style="color:var(--muted);font-size:.85rem">Fundador · Base Viral</div></div>
-    </div>
-  </section>
-
-  <!-- 17. PRÓXIMOS PASSOS -->
+  <!-- 16. PRÓXIMOS PASSOS -->
   <section class="slide dark" data-title="Próximos passos">
     <span class="eyebrow">Próximos passos</span>
     <h1 class="title">Como a parceria avança</h1>
